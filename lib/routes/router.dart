@@ -5,30 +5,35 @@ import 'package:shared_preferences/shared_preferences.dart';
 import 'package:simprodis_flutter/screens/ConvexBottom/convexBottom.dart';
 import 'package:simprodis_flutter/screens/bahan_kimia_screen.dart';
 import 'package:simprodis_flutter/screens/beranda/beranda_screen.dart';
+import 'package:simprodis_flutter/screens/flowmeter_screen.dart';
 import 'package:simprodis_flutter/screens/home/home_screen.dart';
 import 'package:simprodis_flutter/screens/intake/intake_screen.dart';
 import 'package:simprodis_flutter/screens/intake/ipa_screen.dart';
 import 'package:simprodis_flutter/screens/kwh/kwh_screen.dart';
 import 'package:simprodis_flutter/screens/login/LoginScreen.dart';
+import 'package:simprodis_flutter/screens/ph_screen.dart';
 import 'package:simprodis_flutter/screens/pompa/kelompok_pompa_screen.dart';
 import 'package:simprodis_flutter/screens/pompa/pompa_screen.dart';
-import 'package:simprodis_flutter/screens/pressure/kelompok_pressure_screen.dart';
-import 'package:simprodis_flutter/screens/pressure/pressure_screen.dart';
+// import 'package:simprodis_flutter/screens/pressure/kelompok_pressure_screen.dart';
+// import 'package:simprodis_flutter/screens/pressure/pressure_screen.dart';
 import 'package:simprodis_flutter/screens/pressure/pressure_screen_2.dart';
-import 'package:simprodis_flutter/screens/reservoir/kelompok_reservoir.dart';
-import 'package:simprodis_flutter/screens/reservoir/reservoir_screen.dart';
+// import 'package:simprodis_flutter/screens/reservoir/kelompok_reservoir.dart';
+// import 'package:simprodis_flutter/screens/reservoir/reservoir_screen.dart';
+import 'package:simprodis_flutter/screens/reservoir/reservoir_screen2.dart';
+import 'package:simprodis_flutter/screens/scada_screen.dart';
+import 'package:simprodis_flutter/screens/spey_clarif_screen.dart';
 import 'package:simprodis_flutter/screens/stand_meter/kelompok_stand_meter_screen.dart';
 import 'package:simprodis_flutter/screens/stand_meter/stand_meter_screen.dart';
 import 'package:simprodis_flutter/screens/tinggi_sungai/tinggi_sungai_screen.dart';
 import 'package:simprodis_flutter/screens/userSetting/user_settings.dart';
 import 'package:simprodis_flutter/screens/voltage/voltage_screen.dart';
-import 'package:simprodis_flutter/screens/buku_saku/buku_saku_screen.dart';
-import 'package:simprodis_flutter/screens/detail/DetailScreen.dart';
-import 'package:simprodis_flutter/screens/jabatan/list_jabatan_screen.dart';
-import 'package:simprodis_flutter/screens/keluarga/list_keluarga_screen.dart';
-import 'package:simprodis_flutter/screens/listBerkala/list_berkala_screen.dart';
-import 'package:simprodis_flutter/screens/pendidikan/pendidikan_list.dart';
-import 'package:simprodis_flutter/screens/readPdf/read_pdf.dart';
+// import 'package:simprodis_flutter/screens/buku_saku/buku_saku_screen.dart';
+// import 'package:simprodis_flutter/screens/detail/DetailScreen.dart';
+// import 'package:simprodis_flutter/screens/jabatan/list_jabatan_screen.dart';
+// import 'package:simprodis_flutter/screens/keluarga/list_keluarga_screen.dart';
+// import 'package:simprodis_flutter/screens/listBerkala/list_berkala_screen.dart';
+// import 'package:simprodis_flutter/screens/pendidikan/pendidikan_list.dart';
+// import 'package:simprodis_flutter/screens/readPdf/read_pdf.dart';
 part 'route_name.dart';
 
 final router = GoRouter(
@@ -146,24 +151,31 @@ final router = GoRouter(
           },
 
           routes: [
+            // GoRoute(
+            //   path: '/${Routes.kelompokReservoirScreen}',
+            //   name: Routes.kelompokReservoirScreen,
+            //   builder: (BuildContext context, GoRouterState state) {
+            //     return KelompokReservoirScreen();
+            //   },
+            //   routes: [
+            //     GoRoute(
+            //       path: '/${Routes.reservoirScreen}',
+            //       name: Routes.reservoirScreen,
+            //       builder: (BuildContext context, GoRouterState state) {
+            //         return ReservoirScreen(
+            //           idKelompok: state.uri.queryParameters['idKelompok'],
+            //           namaKelompok: state.uri.queryParameters['namaKelompok'],
+            //         );
+            //       },
+            //     ),
+            //   ],
+            // ),
             GoRoute(
-              path: '/${Routes.kelompokReservoirScreen}',
-              name: Routes.kelompokReservoirScreen,
+              path: '/${Routes.reservoirScreen2}',
+              name: Routes.reservoirScreen2,
               builder: (BuildContext context, GoRouterState state) {
-                return KelompokReservoirScreen();
+                return ReservoirScreen2();
               },
-              routes: [
-                GoRoute(
-                  path: '/${Routes.reservoirScreen}',
-                  name: Routes.reservoirScreen,
-                  builder: (BuildContext context, GoRouterState state) {
-                    return ReservoirScreen(
-                      idKelompok: state.uri.queryParameters['idKelompok'],
-                      namaKelompok: state.uri.queryParameters['namaKelompok'],
-                    );
-                  },
-                ),
-              ],
             ),
             GoRoute(
               path: '/${Routes.kelompokStandMeterScreen}',
@@ -189,6 +201,34 @@ final router = GoRouter(
               name: Routes.bahanKimiaScreen,
               builder: (BuildContext context, GoRouterState state) {
                 return BahanKimiaScreen();
+              },
+            ),
+            GoRoute(
+              path: '/${Routes.phScreen}',
+              name: Routes.phScreen,
+              builder: (BuildContext context, GoRouterState state) {
+                return PhScreen();
+              },
+            ),
+            GoRoute(
+              path: '/${Routes.scadarScreen}',
+              name: Routes.scadarScreen,
+              builder: (BuildContext context, GoRouterState state) {
+                return ScadaScreen();
+              },
+            ),
+            GoRoute(
+              path: '/${Routes.flowmeterScreen}',
+              name: Routes.flowmeterScreen,
+              builder: (BuildContext context, GoRouterState state) {
+                return FlowmeterScreen();
+              },
+            ),
+            GoRoute(
+              path: '/${Routes.speyClarifScreen}',
+              name: Routes.speyClarifScreen,
+              builder: (BuildContext context, GoRouterState state) {
+                return SpeyClarifScreen();
               },
             ),
           ],

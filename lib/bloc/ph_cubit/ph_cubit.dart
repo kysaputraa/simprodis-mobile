@@ -1,31 +1,33 @@
 import 'dart:convert';
 
 import 'package:bloc/bloc.dart';
+import 'package:meta/meta.dart';
 import 'package:flutter_dotenv/flutter_dotenv.dart';
 import 'package:http/http.dart' as http;
 import 'package:shared_preferences/shared_preferences.dart';
-part 'bahan_kimia_state.dart';
+part 'ph_state.dart';
 
-class BahanKimiaCubit extends Cubit<BahanKimiaState> {
-  BahanKimiaCubit() : super(BahanKimiaInitial());
+class PhCubit extends Cubit<PhState> {
+  PhCubit() : super(PhInitial());
 
   void simpan({
     required id_instalasi,
     required tanggal,
     required jam,
-    required penetral,
-    required koagulan,
-    required desinfektan,
+    required phAirBaku,
+    required phAirClarif,
+    required phAirProduksi,
+    required phReservoir1,
+    required phReservoir2,
   }) async {
     String? baseUrl = dotenv.env['BASE_URL'];
-
-    emit(BahanKimiaLoading());
+    emit(PhLoading());
     try {
       SharedPreferences prefs = await SharedPreferences.getInstance();
       String token = prefs.getString("tokenjwt").toString();
       String idPetugasHP = prefs.getString("id_petugas_hp").toString();
       String username = prefs.getString("username").toString();
-      Uri url = Uri.parse('${baseUrl}addBahanKimia');
+      Uri url = Uri.parse('${baseUrl}addPH');
       var response = await http.post(
         url,
         headers: {'Authorization': 'Bearer $token'},
@@ -34,32 +36,22 @@ class BahanKimiaCubit extends Cubit<BahanKimiaState> {
           "id_petugas_hp": idPetugasHP,
           "waktu_lapor": tanggal,
           "jam_lapor": jam,
-          "isi_penjernih": penetral,
-          "isi_koagulan": koagulan,
-          "isi_desinfektan": desinfektan,
+          'ph_air_baku': phAirBaku,
+          'ph_air_clarif': phAirClarif,
+          'ph_air_produksi': phAirProduksi,
+          'ph_reservoir1': phReservoir1,
+          'ph_reservoir2': phReservoir2,
           "username": username,
         },
       );
       var jsonResponse = jsonDecode(response.body) as Map<String, dynamic>;
       if (jsonResponse['code'] == 1) {
-        // fetchData(id_instalasi: id_instalasi, tanggal: tanggal);
-        emit(
-          BahanKimiaSuccessInsert(message: jsonResponse['message'].toString()),
-        );
+        emit(PhSuccessInsert(message: jsonResponse['message'].toString()));
       } else {
-        // String messageString;
-        // if (jsonResponse['message'] is List) {
-        //   messageString = jsonResponse['message'].join(', ');
-        // } else if (jsonResponse['message'] != null) {
-        //   messageString = jsonResponse['message'].toString();
-        // } else {
-        //   messageString = '';
-        // }
-        emit(BahanKimiaError(message: jsonResponse['message'].toString()));
-        // fetchData(id_instalasi: id_instalasi, tanggal: tanggal);
+        emit(PhError(message: jsonResponse['message'].toString()));
       }
     } catch (e) {
-      emit(BahanKimiaError(message: e.toString()));
+      emit(PhError(message: e.toString()));
     }
   }
 }

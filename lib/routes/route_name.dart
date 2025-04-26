@@ -16,8 +16,13 @@ abstract class Routes {
   static const pressureScreen = 'pressureScreen';
   static const pressureScreen2 = 'pressureScreen2';
   static const reservoirScreen = 'reservoirScreen';
+  static const reservoirScreen2 = 'reservoirScreen2';
   static const standMeterScreen = 'standMeterScreen';
   static const bahanKimiaScreen = 'bahanKimiaScreen';
+  static const phScreen = 'phScreen';
+  static const flowmeterScreen = 'flowmeterScreen';
+  static const scadarScreen = 'scadarScreen';
+  static const speyClarifScreen = 'speyClarifScreen';
 
   //
   static const homeScreen = 'homeScreen';

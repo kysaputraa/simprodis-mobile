@@ -362,6 +362,7 @@ class _IpaScreenState extends State<IpaScreen> {
               ),
             ),
           ),
+          SizedBox(height: 20),
           BlocBuilder(
             bloc: instalasCubit,
             builder: (context, state) {
@@ -388,34 +389,7 @@ class _IpaScreenState extends State<IpaScreen> {
                             context: context,
                             state: state,
                             text: "Tinggi Reservoir",
-                            routeName: Routes.kelompokReservoirScreen,
-                            color: const Color.fromRGBO(87, 230, 175, 1),
-                            textColor: Colors.black,
-                          ),
-                        ),
-                      ],
-                    ),
-                    const SizedBox(height: 10.0),
-                    Row(
-                      mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                      children: [
-                        Expanded(
-                          child: _buildInkWellButton(
-                            context: context,
-                            state: state,
-                            text: "Stand Meter Air",
-                            routeName: Routes.kelompokStandMeterScreen,
-                            color: const Color.fromRGBO(87, 230, 175, 1),
-                            textColor: Colors.black,
-                          ),
-                        ),
-                        const SizedBox(width: 10.0),
-                        Expanded(
-                          child: _buildInkWellButton(
-                            context: context,
-                            state: state,
-                            text: "Debit",
-                            routeName: Routes.kelompokPressureScreen,
+                            routeName: Routes.reservoirScreen2,
                             color: const Color.fromRGBO(87, 230, 175, 1),
                             textColor: Colors.black,
                           ),
@@ -441,20 +415,133 @@ class _IpaScreenState extends State<IpaScreen> {
                           child: _buildInkWellButton(
                             context: context,
                             state: state,
-                            text: "Pengisian bahan penjernih air",
+                            text: "Flowmeter",
+                            routeName: Routes.flowmeterScreen,
+                            color: const Color.fromRGBO(87, 230, 175, 1),
+                            textColor: Colors.black,
+                          ),
+                        ),
+                      ],
+                    ),
+                    const SizedBox(height: 10.0),
+                    Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                      children: [
+                        Expanded(
+                          child: _buildInkWellButton(
+                            context: context,
+                            state: state,
+                            text: "Pressure",
+                            routeName: Routes.pressureScreen2,
+                            color: const Color.fromRGBO(87, 230, 175, 1),
+                            textColor: Colors.black,
+                          ),
+                        ),
+                        const SizedBox(width: 10.0),
+                        Expanded(
+                          child: _buildInkWellButton(
+                            context: context,
+                            state: state,
+                            text: "pH",
                             routeName:
                                 Routes
-                                    .bahanKimiaScreen, // You might want to change this route
+                                    .phScreen, // You might want to change this route
                             color: const Color.fromRGBO(87, 230, 175, 1),
                             textColor: Colors.black,
                             textAlign: TextAlign.center,
+                          ),
+                        ),
+                      ],
+                    ),
+                    SizedBox(height: 10),
+                    Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                      children: [
+                        Expanded(
+                          child: _buildInkWellButton(
+                            context: context,
+                            state: state,
+                            text: "Pengisian bahan penjernih air",
+                            routeName: Routes.bahanKimiaScreen,
+                            color: const Color.fromRGBO(87, 230, 175, 1),
+                            textColor: Colors.black,
                             fontSize: 12,
+                          ),
+                        ),
+                        const SizedBox(width: 10.0),
+                        Expanded(
+                          child: _buildInkWellButton(
+                            context: context,
+                            state: state,
+                            text: "Spey Clarif",
+                            routeName:
+                                Routes
+                                    .speyClarifScreen, // You might want to change this route
+                            color: const Color.fromRGBO(87, 230, 175, 1),
+                            textColor: Colors.black,
+                            textAlign: TextAlign.center,
+                          ),
+                        ),
+                      ],
+                    ),
+                    SizedBox(height: 10),
+                    Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                      children: [
+                        Expanded(
+                          child: _buildInkWellButton(
+                            context: context,
+                            state: state,
+                            text: "Cuci Filter",
+                            routeName: Routes.bahanKimiaScreen,
+                            color: const Color.fromRGBO(87, 230, 175, 1),
+                            textColor: Colors.black,
+                          ),
+                        ),
+                        const SizedBox(width: 10.0),
+                        Expanded(
+                          child: _buildInkWellButton(
+                            context: context,
+                            state: state,
+                            text: "SCADA",
+                            routeName:
+                                Routes
+                                    .scadarScreen, // You might want to change this route
+                            color: const Color.fromRGBO(87, 230, 175, 1),
+                            textColor: Colors.black,
+                            textAlign: TextAlign.center,
                           ),
                         ),
                       ],
                     ),
                   ],
                 );
+
+                // return GridView.builder(
+                //   gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
+                //     crossAxisCount: 2,
+                //     crossAxisSpacing: 10.0, // Spacing between columns
+                //     mainAxisSpacing: 10.0, // Spacing between rows
+                //     childAspectRatio: 5 / 3, // Adjust as needed for item shape
+                //   ),
+                //   shrinkWrap: true,
+                //   itemCount: 6,
+                //   physics: NeverScrollableScrollPhysics(),
+                //   itemBuilder: (context, index) {
+                //     return _buildInkWellButton(
+                //       context: context,
+                //       state: state,
+                //       text: "Pengisian bahan penjernih air",
+                //       routeName:
+                //           Routes
+                //               .bahanKimiaScreen, // You might want to change this route
+                //       color: const Color.fromRGBO(87, 230, 175, 1),
+                //       textColor: Colors.black,
+                //       textAlign: TextAlign.center,
+                //       fontSize: 12,
+                //     );
+                //   },
+                // );
               } else if (state is InstalasiLoading) {
                 return Center(child: CircularProgressIndicator());
               } else {

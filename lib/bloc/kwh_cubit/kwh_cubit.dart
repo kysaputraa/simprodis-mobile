@@ -50,20 +50,21 @@ class KwhCubit extends Cubit<KwhState> {
     try {
       SharedPreferences prefs = await SharedPreferences.getInstance();
       String token = prefs.getString("tokenjwt").toString();
-      String id_petugas_hp = prefs.getString("id_petugas_hp").toString();
-      inspect(id_petugas_hp);
+      String idPetugasHP = prefs.getString("id_petugas_hp").toString();
+      String username = prefs.getString("username").toString();
       Uri url = Uri.parse('${baseUrl}addKWH');
       var response = await http.post(
         url,
         headers: {'Authorization': 'Bearer $token'},
         body: {
           "id_instalasi": id_instalasi,
-          "id_petugas_hp": id_petugas_hp,
+          "id_petugas_hp": idPetugasHP,
           "tanggal": tanggal,
-          "jam": jam,
+          "jam_lapor": jam,
           "lwbp": lwbp,
           "wbp": wbp,
           "kvarh": kvarh,
+          "username": username,
         },
       );
       var jsonResponse = jsonDecode(response.body) as Map<String, dynamic>;

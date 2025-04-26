@@ -4,10 +4,10 @@ import 'package:bloc/bloc.dart';
 import 'package:flutter_dotenv/flutter_dotenv.dart';
 import 'package:http/http.dart' as http;
 import 'package:shared_preferences/shared_preferences.dart';
-part 'bahan_kimia_state.dart';
+part 'spey_clarif_state.dart';
 
-class BahanKimiaCubit extends Cubit<BahanKimiaState> {
-  BahanKimiaCubit() : super(BahanKimiaInitial());
+class SpeyClarifCubit extends Cubit<SpeyClarifState> {
+  SpeyClarifCubit() : super(SpeyClarifInitial());
 
   void simpan({
     required id_instalasi,
@@ -19,13 +19,13 @@ class BahanKimiaCubit extends Cubit<BahanKimiaState> {
   }) async {
     String? baseUrl = dotenv.env['BASE_URL'];
 
-    emit(BahanKimiaLoading());
+    emit(SpeyClarifLoading());
     try {
       SharedPreferences prefs = await SharedPreferences.getInstance();
       String token = prefs.getString("tokenjwt").toString();
       String idPetugasHP = prefs.getString("id_petugas_hp").toString();
       String username = prefs.getString("username").toString();
-      Uri url = Uri.parse('${baseUrl}addBahanKimia');
+      Uri url = Uri.parse('${baseUrl}addSpeyClarif');
       var response = await http.post(
         url,
         headers: {'Authorization': 'Bearer $token'},
@@ -44,7 +44,7 @@ class BahanKimiaCubit extends Cubit<BahanKimiaState> {
       if (jsonResponse['code'] == 1) {
         // fetchData(id_instalasi: id_instalasi, tanggal: tanggal);
         emit(
-          BahanKimiaSuccessInsert(message: jsonResponse['message'].toString()),
+          SpeyClarifSuccessInsert(message: jsonResponse['message'].toString()),
         );
       } else {
         // String messageString;
@@ -55,11 +55,11 @@ class BahanKimiaCubit extends Cubit<BahanKimiaState> {
         // } else {
         //   messageString = '';
         // }
-        emit(BahanKimiaError(message: jsonResponse['message'].toString()));
+        emit(SpeyClarifError(message: jsonResponse['message'].toString()));
         // fetchData(id_instalasi: id_instalasi, tanggal: tanggal);
       }
     } catch (e) {
-      emit(BahanKimiaError(message: e.toString()));
+      emit(SpeyClarifError(message: e.toString()));
     }
   }
 }

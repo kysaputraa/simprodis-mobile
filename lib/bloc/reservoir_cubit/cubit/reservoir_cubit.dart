@@ -79,4 +79,70 @@ class ReservoirCubit extends Cubit<ReservoirState> {
       emit(ReservoirError(message: e.toString()));
     }
   }
+
+  void fetchData2({required idInstalasi}) async {
+    String? baseUrl = dotenv.env['BASE_URL'];
+    emit(ReservoirLoading());
+    try {
+      SharedPreferences prefs = await SharedPreferences.getInstance();
+      String token = prefs.getString("tokenjwt").toString();
+      Uri url = Uri.parse('${baseUrl}getReservoirByInstalasi');
+      var response = await http.post(
+        url,
+        headers: {'Authorization': 'Bearer $token'},
+        body: {"id_instalasi": idInstalasi},
+      );
+      var jsonResponse = jsonDecode(response.body) as Map<String, dynamic>;
+      ReservoirModel data = ReservoirModel.fromJson(jsonResponse);
+      if (data.code == 1) {
+        emit(ReservoirSuccess(data: data.data!, message: data.message));
+      } else {
+        emit(ReservoirError(message: data.message.toString()));
+      }
+    } catch (e) {
+      emit(ReservoirError(message: e.toString()));
+    }
+  }
+
+  void simpan2({
+    required tanggal,
+    required jam,
+    required idPressGab,
+    required tinggi,
+  }) async {
+    String? baseUrl = dotenv.env['BASE_URL'];
+
+    emit(ReservoirLoading());
+    try {
+      SharedPreferences prefs = await SharedPreferences.getInstance();
+      String token = prefs.getString("tokenjwt").toString();
+      String idPetugasHp = prefs.getString("id_petugas_hp").toString();
+      String username = prefs.getString("username").toString();
+
+      final body = {
+        "id_petugas_hp": idPetugasHp,
+        "waktu_lapor": tanggal,
+        "jam_lapor": jam,
+        "tanggal": tanggal,
+        "id_reservoir": idPressGab,
+        "tinggi_reservoir": tinggi,
+        "username": username,
+      };
+
+      Uri url = Uri.parse('${baseUrl}addReservoir');
+      var response = await http.post(
+        url,
+        headers: {'Authorization': 'Bearer $token'},
+        body: body,
+      );
+      var jsonResponse = jsonDecode(response.body) as Map<String, dynamic>;
+      if (jsonResponse['code'] == 1) {
+        emit(ReservoirSuccessInsert());
+      } else {
+        emit(ReservoirError(message: jsonResponse['message'].toString()));
+      }
+    } catch (e) {
+      emit(ReservoirError(message: e.toString()));
+    }
+  }
 }
