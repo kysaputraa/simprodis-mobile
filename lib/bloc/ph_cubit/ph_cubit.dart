@@ -1,7 +1,5 @@
 import 'dart:convert';
-
 import 'package:bloc/bloc.dart';
-import 'package:meta/meta.dart';
 import 'package:flutter_dotenv/flutter_dotenv.dart';
 import 'package:http/http.dart' as http;
 import 'package:shared_preferences/shared_preferences.dart';
@@ -19,6 +17,11 @@ class PhCubit extends Cubit<PhState> {
     required phAirProduksi,
     required phReservoir1,
     required phReservoir2,
+    required sisaChlor,
+    required kekeruhanIntake,
+    required kekeruhanSedimentasi,
+    required kekeruhanReservoir1,
+    required kekeruhanReservoir2,
   }) async {
     String? baseUrl = dotenv.env['BASE_URL'];
     emit(PhLoading());
@@ -41,6 +44,11 @@ class PhCubit extends Cubit<PhState> {
           'ph_air_produksi': phAirProduksi,
           'ph_reservoir1': phReservoir1,
           'ph_reservoir2': phReservoir2,
+          'sisa_chlor': sisaChlor,
+          'kekeruhan_intake': kekeruhanIntake,
+          'kekeruhan_sedimentasi': kekeruhanSedimentasi,
+          'kekeruhan_reservoir1': kekeruhanReservoir1,
+          'kekeruhan_reservoir2': kekeruhanReservoir2,
           "username": username,
         },
       );

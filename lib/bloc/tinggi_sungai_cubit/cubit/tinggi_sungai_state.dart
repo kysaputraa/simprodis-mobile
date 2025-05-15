@@ -21,6 +21,11 @@ final class TinggiSungaiSuccess extends TinggiSungaiState {
   });
 }
 
+final class TinggiSungaiSuccessInsert extends TinggiSungaiState {
+  String message;
+  TinggiSungaiSuccessInsert({required this.message});
+}
+
 final class TinggiSungaiError extends TinggiSungaiState {
   String message;
   TinggiSungaiError({required this.message});

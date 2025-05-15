@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:go_router/go_router.dart';
 import 'package:simprodis_flutter/bloc/instalasi_cubit/instalasi_cubit.dart';
 import 'package:simprodis_flutter/bloc/kwh_cubit/kwh_cubit.dart';
 
@@ -29,13 +30,23 @@ class KwhScreen extends StatelessWidget {
             child: Column(
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
-                Text(
-                  "INTAKE",
-                  style: TextStyle(
-                    fontSize: 42,
-                    fontWeight: FontWeight.bold,
-                    color: Colors.white,
-                  ),
+                BlocBuilder<InstalasiCubit, InstalasiState>(
+                  builder: (context, state) {
+                    if (state is InstalasiSuccess) {
+                      return Text(
+                        "${state.selectedJenisInstalasi}".toUpperCase(),
+                        style: TextStyle(
+                          fontSize: 42,
+                          fontWeight: FontWeight.bold,
+                          color: Colors.white,
+                        ),
+                      );
+                    } else if (state is InstalasiLoading) {
+                      return Center(child: CircularProgressIndicator());
+                    } else {
+                      return Center(child: Text("Gagal"));
+                    }
+                  },
                 ),
                 Text(
                   'kWh',
@@ -259,6 +270,15 @@ class KwhScreen extends StatelessWidget {
                                         ),
                                       ),
                                     );
+                                  } else if (stateKwh is KwhSuccessInsert) {
+                                    ScaffoldMessenger.of(context).showSnackBar(
+                                      SnackBar(
+                                        content: Text(
+                                          "Sukses : ${stateKwh.message.toString()}",
+                                        ),
+                                      ),
+                                    );
+                                    context.pop();
                                   }
                                 },
                                 builder: (context, stateKwh) {
@@ -305,148 +325,148 @@ class KwhScreen extends StatelessWidget {
                       ),
                     ),
                   ),
-                  Padding(
-                    padding: EdgeInsets.symmetric(horizontal: 20, vertical: 10),
-                    child: Container(
-                      decoration: BoxDecoration(
-                        color: Color.fromRGBO(250, 250, 250, 1),
-                        borderRadius: BorderRadius.circular(8),
-                        boxShadow: [
-                          BoxShadow(
-                            color: Colors.black26,
-                            blurRadius: 4,
-                            offset: Offset(2, 2),
-                          ),
-                        ],
-                      ),
-                      padding: EdgeInsets.all(10),
-                      width: MediaQuery.of(context).size.width,
-                      child: BlocBuilder<KwhCubit, KwhState>(
-                        bloc: kwhCubit,
-                        builder: (context, stateKWH) {
-                          if (stateKWH is KwhSuccess) {
-                            return Table(
-                              columnWidths: const {
-                                0: FlexColumnWidth(1),
-                                1: FlexColumnWidth(2),
-                                2: FlexColumnWidth(2),
-                                3: FlexColumnWidth(2),
-                                4: FlexColumnWidth(2),
-                              },
-                              border: TableBorder.all(
-                                width: 1.0,
-                                color: Colors.grey,
-                              ),
-                              children: [
-                                // Table header
-                                TableRow(
-                                  decoration: BoxDecoration(
-                                    color: Colors.grey[300],
-                                  ),
-                                  children: const [
-                                    Padding(
-                                      padding: EdgeInsets.all(8.0),
-                                      child: Text(
-                                        'No',
-                                        style: TextStyle(
-                                          fontWeight: FontWeight.bold,
-                                        ),
-                                      ),
-                                    ),
-                                    Padding(
-                                      padding: EdgeInsets.all(8.0),
-                                      child: Text(
-                                        'Tanggal',
-                                        style: TextStyle(
-                                          fontWeight: FontWeight.bold,
-                                        ),
-                                      ),
-                                    ),
-                                    Padding(
-                                      padding: EdgeInsets.all(8.0),
-                                      child: Text(
-                                        'LWBP',
-                                        style: TextStyle(
-                                          fontWeight: FontWeight.bold,
-                                        ),
-                                      ),
-                                    ),
-                                    Padding(
-                                      padding: EdgeInsets.all(8.0),
-                                      child: Text(
-                                        'WBP',
-                                        style: TextStyle(
-                                          fontWeight: FontWeight.bold,
-                                        ),
-                                      ),
-                                    ),
-                                    Padding(
-                                      padding: EdgeInsets.all(8.0),
-                                      child: Text(
-                                        'KVARH',
-                                        style: TextStyle(
-                                          fontWeight: FontWeight.bold,
-                                        ),
-                                      ),
-                                    ),
-                                  ],
-                                ),
+                  //   Padding(
+                  //     padding: EdgeInsets.symmetric(horizontal: 20, vertical: 10),
+                  //     child: Container(
+                  //       decoration: BoxDecoration(
+                  //         color: Color.fromRGBO(250, 250, 250, 1),
+                  //         borderRadius: BorderRadius.circular(8),
+                  //         boxShadow: [
+                  //           BoxShadow(
+                  //             color: Colors.black26,
+                  //             blurRadius: 4,
+                  //             offset: Offset(2, 2),
+                  //           ),
+                  //         ],
+                  //       ),
+                  //       padding: EdgeInsets.all(10),
+                  //       width: MediaQuery.of(context).size.width,
+                  //       child: BlocBuilder<KwhCubit, KwhState>(
+                  //         bloc: kwhCubit,
+                  //         builder: (context, stateKWH) {
+                  //           if (stateKWH is KwhSuccess) {
+                  //             return Table(
+                  //               columnWidths: const {
+                  //                 0: FlexColumnWidth(1),
+                  //                 1: FlexColumnWidth(2),
+                  //                 2: FlexColumnWidth(2),
+                  //                 3: FlexColumnWidth(2),
+                  //                 4: FlexColumnWidth(2),
+                  //               },
+                  //               border: TableBorder.all(
+                  //                 width: 1.0,
+                  //                 color: Colors.grey,
+                  //               ),
+                  //               children: [
+                  //                 // Table header
+                  //                 TableRow(
+                  //                   decoration: BoxDecoration(
+                  //                     color: Colors.grey[300],
+                  //                   ),
+                  //                   children: const [
+                  //                     Padding(
+                  //                       padding: EdgeInsets.all(8.0),
+                  //                       child: Text(
+                  //                         'No',
+                  //                         style: TextStyle(
+                  //                           fontWeight: FontWeight.bold,
+                  //                         ),
+                  //                       ),
+                  //                     ),
+                  //                     Padding(
+                  //                       padding: EdgeInsets.all(8.0),
+                  //                       child: Text(
+                  //                         'Tanggal',
+                  //                         style: TextStyle(
+                  //                           fontWeight: FontWeight.bold,
+                  //                         ),
+                  //                       ),
+                  //                     ),
+                  //                     Padding(
+                  //                       padding: EdgeInsets.all(8.0),
+                  //                       child: Text(
+                  //                         'LWBP',
+                  //                         style: TextStyle(
+                  //                           fontWeight: FontWeight.bold,
+                  //                         ),
+                  //                       ),
+                  //                     ),
+                  //                     Padding(
+                  //                       padding: EdgeInsets.all(8.0),
+                  //                       child: Text(
+                  //                         'WBP',
+                  //                         style: TextStyle(
+                  //                           fontWeight: FontWeight.bold,
+                  //                         ),
+                  //                       ),
+                  //                     ),
+                  //                     Padding(
+                  //                       padding: EdgeInsets.all(8.0),
+                  //                       child: Text(
+                  //                         'KVARH',
+                  //                         style: TextStyle(
+                  //                           fontWeight: FontWeight.bold,
+                  //                         ),
+                  //                       ),
+                  //                     ),
+                  //                   ],
+                  //                 ),
 
-                                // Table rows from stateKWH.data
-                                ...stateKWH.data.asMap().entries.map((entry) {
-                                  final index = entry.key;
-                                  final data = entry.value;
-                                  final tanggal =
-                                      data.waktuLapor?.toIso8601String() ??
-                                      'Unknown Date';
-                                  final formattedTanggal =
-                                      DateTime.tryParse(
-                                        tanggal,
-                                      )?.toLocal().toString().split(' ')[0] ??
-                                      'Invalid Date';
+                  //                 // Table rows from stateKWH.data
+                  //                 ...stateKWH.data.asMap().entries.map((entry) {
+                  //                   final index = entry.key;
+                  //                   final data = entry.value;
+                  //                   final tanggal =
+                  //                       data.waktuLapor?.toIso8601String() ??
+                  //                       'Unknown Date';
+                  //                   final formattedTanggal =
+                  //                       DateTime.tryParse(
+                  //                         tanggal,
+                  //                       )?.toLocal().toString().split(' ')[0] ??
+                  //                       'Invalid Date';
 
-                                  return TableRow(
-                                    children: [
-                                      Padding(
-                                        padding: const EdgeInsets.all(8.0),
-                                        child: Text((index + 1).toString()),
-                                      ),
-                                      Padding(
-                                        padding: const EdgeInsets.all(8.0),
-                                        child: Text(
-                                          formattedTanggal.toString(),
-                                        ),
-                                      ),
-                                      Padding(
-                                        padding: const EdgeInsets.all(8.0),
-                                        child: Text(data.lwbp.toString()),
-                                      ),
-                                      Padding(
-                                        padding: const EdgeInsets.all(8.0),
-                                        child: Text(data.wbp.toString()),
-                                      ),
-                                      Padding(
-                                        padding: const EdgeInsets.all(8.0),
-                                        child: Text(data.kvarh.toString()),
-                                      ),
-                                    ],
-                                  );
-                                }).toList(),
-                              ],
-                            );
-                          } else if (stateKWH is KwhLoading) {
-                            return Center(child: CircularProgressIndicator());
-                          } else if (stateKWH is KwhError) {
-                            return Center(
-                              child: Text("Error: ${stateKWH.message}"),
-                            );
-                          } else {
-                            return Center(child: Text("Gagal"));
-                          }
-                        },
-                      ),
-                    ),
-                  ),
+                  //                   return TableRow(
+                  //                     children: [
+                  //                       Padding(
+                  //                         padding: const EdgeInsets.all(8.0),
+                  //                         child: Text((index + 1).toString()),
+                  //                       ),
+                  //                       Padding(
+                  //                         padding: const EdgeInsets.all(8.0),
+                  //                         child: Text(
+                  //                           formattedTanggal.toString(),
+                  //                         ),
+                  //                       ),
+                  //                       Padding(
+                  //                         padding: const EdgeInsets.all(8.0),
+                  //                         child: Text(data.lwbp.toString()),
+                  //                       ),
+                  //                       Padding(
+                  //                         padding: const EdgeInsets.all(8.0),
+                  //                         child: Text(data.wbp.toString()),
+                  //                       ),
+                  //                       Padding(
+                  //                         padding: const EdgeInsets.all(8.0),
+                  //                         child: Text(data.kvarh.toString()),
+                  //                       ),
+                  //                     ],
+                  //                   );
+                  //                 }).toList(),
+                  //               ],
+                  //             );
+                  //           } else if (stateKWH is KwhLoading) {
+                  //             return Center(child: CircularProgressIndicator());
+                  //           } else if (stateKWH is KwhError) {
+                  //             return Center(
+                  //               child: Text("Error: ${stateKWH.message}"),
+                  //             );
+                  //           } else {
+                  //             return Center(child: Text("Gagal"));
+                  //           }
+                  //         },
+                  //       ),
+                  //     ),
+                  //   ),
                 ],
               ),
             );

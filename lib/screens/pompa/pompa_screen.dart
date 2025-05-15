@@ -47,13 +47,23 @@ class PompaScreen extends StatelessWidget {
             child: Column(
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
-                Text(
-                  "INTAKE",
-                  style: TextStyle(
-                    fontSize: 42,
-                    fontWeight: FontWeight.bold,
-                    color: Colors.white,
-                  ),
+                BlocBuilder<InstalasiCubit, InstalasiState>(
+                  builder: (context, state) {
+                    if (state is InstalasiSuccess) {
+                      return Text(
+                        "${state.selectedJenisInstalasi}".toUpperCase(),
+                        style: TextStyle(
+                          fontSize: 42,
+                          fontWeight: FontWeight.bold,
+                          color: Colors.white,
+                        ),
+                      );
+                    } else if (state is InstalasiLoading) {
+                      return Center(child: CircularProgressIndicator());
+                    } else {
+                      return Center(child: Text("Gagal"));
+                    }
+                  },
                 ),
                 Text(
                   'Pompa',
@@ -376,32 +386,56 @@ class PompaScreen extends StatelessWidget {
                       }
                     },
                   ),
-                  ElevatedButton(
-                    onPressed: () {
-                      List<String> amphereList =
-                          amphereControllers
-                              .map((controller) => controller.text)
-                              .toList();
-                      List<String> speedList =
-                          speedControllers
-                              .map((controller) => controller.text)
-                              .toList();
-                      List<String> pressureList =
-                          pressureControllers
-                              .map((controller) => controller.text)
-                              .toList();
+                  Center(
+                    child: Container(
+                      padding: EdgeInsets.only(left: 20, right: 20, bottom: 20),
+                      width: double.infinity,
+                      child: ElevatedButton(
+                        style: ElevatedButton.styleFrom(
+                          padding: EdgeInsets.symmetric(vertical: 12),
+                          textStyle: TextStyle(fontSize: 16),
+                          shape: RoundedRectangleBorder(
+                            borderRadius: BorderRadius.circular(
+                              8,
+                            ), // Set the radius here
+                          ),
+                          backgroundColor: Colors.blue,
+                          elevation: 4,
+                          shadowColor: Colors.black45,
+                        ),
+                        onPressed: () {
+                          List<String> amphereList =
+                              amphereControllers
+                                  .map((controller) => controller.text)
+                                  .toList();
+                          List<String> speedList =
+                              speedControllers
+                                  .map((controller) => controller.text)
+                                  .toList();
+                          List<String> pressureList =
+                              pressureControllers
+                                  .map((controller) => controller.text)
+                                  .toList();
 
-                      pompaCubit.simpan(
-                        amphereList: amphereList,
-                        idKelompokPompa: idKelompok,
-                        pressureList: pressureList,
-                        speedList: speedList,
-                        jam: selectedJam,
-                        tanggal: selectedTanggal,
-                        idPompa: idPompa,
-                      );
-                    },
-                    child: Text("SIMPAN"),
+                          pompaCubit.simpan(
+                            amphereList: amphereList,
+                            idKelompokPompa: idKelompok,
+                            pressureList: pressureList,
+                            speedList: speedList,
+                            jam: selectedJam,
+                            tanggal: selectedTanggal,
+                            idPompa: idPompa,
+                          );
+                        },
+                        child: Text(
+                          'Simpan',
+                          style: TextStyle(
+                            color: Colors.white,
+                            fontWeight: FontWeight.bold,
+                          ),
+                        ),
+                      ),
+                    ),
                   ),
                 ],
               ),

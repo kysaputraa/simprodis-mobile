@@ -1,5 +1,6 @@
+import 'dart:convert';
 import 'dart:developer';
-
+import 'package:http/http.dart' as http;
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_dotenv/flutter_dotenv.dart';
@@ -14,6 +15,106 @@ import 'package:intl/intl.dart';
 class UserSettings extends StatelessWidget {
   const UserSettings({super.key});
   // Method to fetch SharedPreferences data
+
+  void _showChangePasswordDialog(BuildContext context, String? username) {
+    final TextEditingController currentPasswordController =
+        TextEditingController();
+    final TextEditingController newPasswordController = TextEditingController();
+    final TextEditingController confirmPasswordController =
+        TextEditingController();
+
+    showDialog(
+      context: context,
+      builder: (BuildContext context) {
+        return AlertDialog(
+          title: const Text('Ubah Password'),
+          content: SingleChildScrollView(
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                const SizedBox(height: 10),
+                TextField(
+                  controller: newPasswordController,
+                  obscureText: true,
+                  decoration: const InputDecoration(labelText: 'Password Baru'),
+                ),
+                const SizedBox(height: 10),
+                TextField(
+                  controller: confirmPasswordController,
+                  obscureText: true,
+                  decoration: const InputDecoration(
+                    labelText: 'Konfrimasi Password Baru',
+                  ),
+                ),
+              ],
+            ),
+          ),
+          actions: [
+            TextButton(
+              onPressed: () {
+                Navigator.of(context).pop();
+              },
+              child: const Text('Batal'),
+            ),
+            ElevatedButton(
+              onPressed: () async {
+                final newPassword = newPasswordController.text;
+                final confirmPassword = confirmPasswordController.text;
+
+                if (newPassword != confirmPassword) {
+                  if (!context.mounted) return;
+                  ScaffoldMessenger.of(context).showSnackBar(
+                    const SnackBar(content: Text('Password tidak sama')),
+                  );
+                  return;
+                }
+
+                // Add logic to handle password change here
+                String? baseUrl = dotenv.env['BASE_URL'];
+
+                try {
+                  SharedPreferences prefs =
+                      await SharedPreferences.getInstance();
+                  String token = prefs.getString("tokenjwt").toString();
+                  Uri url = Uri.parse('${baseUrl}UbahPassword');
+                  var response = await http.post(
+                    url,
+                    headers: {'Authorization': 'Bearer $token'},
+                    body: {
+                      "username": username,
+                      "password": newPasswordController.text,
+                    },
+                  );
+
+                  var jsonResponse =
+                      jsonDecode(response.body) as Map<String, dynamic>;
+                  if (!context.mounted) return;
+                  Navigator.of(context).pop();
+                  if (jsonResponse['code'] == 1) {
+                    ScaffoldMessenger.of(context).showSnackBar(
+                      const SnackBar(content: Text('Password berhasil diubah')),
+                    );
+                  } else {
+                    ScaffoldMessenger.of(
+                      context,
+                    ).showSnackBar(const SnackBar(content: Text('Gagal !')));
+                  }
+                } catch (e) {
+                  inspect(e);
+                  if (!context.mounted) return;
+                  ScaffoldMessenger.of(
+                    context,
+                  ).showSnackBar(const SnackBar(content: Text('Gagal ! ')));
+                }
+                // Navigator.of(context).pop();
+              },
+              child: const Text('Ubah'),
+            ),
+          ],
+        );
+      },
+    );
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -83,7 +184,10 @@ class UserSettings extends StatelessWidget {
                                 child: IconButton(
                                   icon: const Icon(Icons.edit),
                                   onPressed: () {
-                                    // Handle edit button press
+                                    _showChangePasswordDialog(
+                                      context,
+                                      state.data.data?.username,
+                                    );
                                   },
                                 ),
                               ),
@@ -143,13 +247,24 @@ class UserSettings extends StatelessWidget {
                               //   height: 5,
                               //   thickness: 2,
                               //   color: Colors.black45,
-                              // ),
                               ListDetailUser(
-                                icon: Icons.calendar_month,
-                                title: 'Tempat, Tanggal Lahir',
-                                value:
-                                    '${state.data.data?.nama}, $formattedDate',
+                                icon: Icons.work,
+                                title: 'Username',
+                                value: '${state.data.data?.username}',
                               ),
+                              // const Divider(
+                              //   endIndent: 10,
+                              //   indent: 10,
+                              //   height: 5,
+                              //   thickness: 2,
+                              //   color: Colors.black45,
+                              // ),
+                              // ListDetailUser(
+                              //   icon: Icons.calendar_month,
+                              //   title: 'Tempat, Tanggal Lahir',
+                              //   value:
+                              //       '${state.data.data?.nama}, $formattedDate',
+                              // ),
                               const Divider(
                                 endIndent: 10,
                                 indent: 10,
@@ -160,7 +275,7 @@ class UserSettings extends StatelessWidget {
                               ListDetailUser(
                                 icon: Icons.star,
                                 title: 'Agama',
-                                value: '${state.data.data?.nama}',
+                                value: '...',
                               ),
                               const Divider(
                                 endIndent: 10,
@@ -172,7 +287,7 @@ class UserSettings extends StatelessWidget {
                               ListDetailUser(
                                 icon: Icons.home,
                                 title: 'Alamat',
-                                value: '${state.data.data?.nama}',
+                                value: '...',
                               ),
                               const Divider(
                                 endIndent: 10,
@@ -181,35 +296,23 @@ class UserSettings extends StatelessWidget {
                                 thickness: 2,
                                 color: Colors.black45,
                               ),
-                              ListDetailUser(
-                                icon: Icons.work,
-                                title: 'Jabatan',
-                                value: '${state.data.data?.nama}',
-                              ),
-                              const Divider(
-                                endIndent: 10,
-                                indent: 10,
-                                height: 5,
-                                thickness: 2,
-                                color: Colors.black45,
-                              ),
-                              ListDetailUser(
-                                icon: Icons.work,
-                                title: 'Golongan - Pangkat',
-                                value:
-                                    '${state.data.data?.nama} - ${state.data.data?.nama}',
-                              ),
-                              const Divider(
-                                endIndent: 10,
-                                indent: 10,
-                                height: 5,
-                                thickness: 2,
-                                color: Colors.black45,
-                              ),
+                              // ListDetailUser(
+                              //   icon: Icons.work,
+                              //   title: 'Golongan - Pangkat',
+                              //   value:
+                              //       '${state.data.data?.nama} - ${state.data.data?.nama}',
+                              // ),
+                              // const Divider(
+                              //   endIndent: 10,
+                              //   indent: 10,
+                              //   height: 5,
+                              //   thickness: 2,
+                              //   color: Colors.black45,
+                              // ),
                               ListDetailUser(
                                 icon: Icons.apartment,
                                 title: 'Departemen',
-                                value: '${state.data.data?.nama}',
+                                value: '...',
                               ),
                             ],
                           ),
@@ -233,7 +336,7 @@ class UserSettings extends StatelessWidget {
               child: ElevatedButton(
                 onPressed: () {
                   authBloc.add(AuthEventLogout());
-                  // context.goNamed(Routes.detailScreen);
+                  // context.pushNamed(Routes.detailScreen);
                 },
                 style: ElevatedButton.styleFrom(
                   shape: const RoundedRectangleBorder(
@@ -250,7 +353,7 @@ class UserSettings extends StatelessWidget {
                       ScaffoldMessenger.of(context).showSnackBar(
                         const SnackBar(content: Text("berhasil Logout !")),
                       );
-                      context.goNamed(Routes.loginScreen);
+                      context.pushNamed(Routes.loginScreen);
                     }
                   },
                   builder: (context, state) {

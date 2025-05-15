@@ -25,3 +25,8 @@ final class VoltageError extends VoltageState {
   String message;
   VoltageError({required this.message});
 }
+
+final class VoltageSuccessInsert extends VoltageState {
+  String message;
+  VoltageSuccessInsert({required this.message});
+}

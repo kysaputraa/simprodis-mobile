@@ -1,8 +1,6 @@
-import 'dart:developer';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:simprodis_flutter/bloc/instalasi_cubit/instalasi_cubit.dart';
-import 'package:simprodis_flutter/bloc/pressure_cubit/cubit/pressure_cubit.dart';
 import 'package:simprodis_flutter/bloc/pressure_cubit/cubit/pressure_cubit.dart';
 
 class PressureScreen extends StatelessWidget {
@@ -45,13 +43,23 @@ class PressureScreen extends StatelessWidget {
             child: Column(
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
-                Text(
-                  "INTAKE",
-                  style: TextStyle(
-                    fontSize: 42,
-                    fontWeight: FontWeight.bold,
-                    color: Colors.white,
-                  ),
+                BlocBuilder<InstalasiCubit, InstalasiState>(
+                  builder: (context, state) {
+                    if (state is InstalasiSuccess) {
+                      return Text(
+                        "${state.selectedJenisInstalasi}".toUpperCase(),
+                        style: TextStyle(
+                          fontSize: 42,
+                          fontWeight: FontWeight.bold,
+                          color: Colors.white,
+                        ),
+                      );
+                    } else if (state is InstalasiLoading) {
+                      return Center(child: CircularProgressIndicator());
+                    } else {
+                      return Center(child: Text("Gagal"));
+                    }
+                  },
                 ),
                 Text(
                   'Pressure',

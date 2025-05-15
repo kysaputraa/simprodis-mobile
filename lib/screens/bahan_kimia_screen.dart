@@ -12,6 +12,14 @@ class BahanKimiaScreen extends StatelessWidget {
     final TextEditingController koagulan = TextEditingController();
     final TextEditingController desinfektan = TextEditingController();
 
+    final TextEditingController konsKoagulan = TextEditingController();
+    final TextEditingController scm = TextEditingController();
+    final TextEditingController frekKoagulan = TextEditingController();
+    final TextEditingController frekPenetral = TextEditingController();
+    final TextEditingController frekDesinfektan = TextEditingController();
+    final TextEditingController tinggiPenyimpananKoagulan =
+        TextEditingController();
+
     final bahanKimiaCubit = BahanKimiaCubit();
 
     return Scaffold(
@@ -134,11 +142,14 @@ class BahanKimiaScreen extends StatelessWidget {
                       child: Column(
                         crossAxisAlignment: CrossAxisAlignment.center,
                         children: [
-                          Text(
-                            "Kg",
-                            style: TextStyle(
-                              color: Color.fromRGBO(0, 81, 135, 1),
-                              fontWeight: FontWeight.bold,
+                          Align(
+                            alignment: Alignment.centerLeft,
+                            child: Text(
+                              "Pengisian Bahan",
+                              style: TextStyle(
+                                color: Color.fromRGBO(0, 81, 135, 1),
+                                fontWeight: FontWeight.bold,
+                              ),
                             ),
                           ),
                           Row(
@@ -150,7 +161,7 @@ class BahanKimiaScreen extends StatelessWidget {
                                 ),
                               ),
                               Expanded(
-                                flex: 3,
+                                flex: 1,
                                 child: TextFormField(
                                   controller: koagulan,
                                   keyboardType: TextInputType.number,
@@ -184,7 +195,7 @@ class BahanKimiaScreen extends StatelessWidget {
                                 ),
                               ),
                               Expanded(
-                                flex: 3,
+                                flex: 1,
                                 child: TextFormField(
                                   controller: penetral,
                                   keyboardType: TextInputType.number,
@@ -218,12 +229,237 @@ class BahanKimiaScreen extends StatelessWidget {
                                 ),
                               ),
                               Expanded(
-                                flex: 3,
+                                flex: 1,
                                 child: TextFormField(
                                   controller: desinfektan,
                                   keyboardType: TextInputType.number,
                                   decoration: InputDecoration(
                                     hintText: 'desinfektan',
+                                    enabledBorder: OutlineInputBorder(
+                                      borderSide: BorderSide(
+                                        color: Colors.blue,
+                                      ),
+                                      borderRadius: BorderRadius.circular(8),
+                                    ),
+                                    focusedBorder: OutlineInputBorder(
+                                      borderSide: BorderSide(
+                                        color: Colors.blue,
+                                        width: 2,
+                                      ),
+                                      borderRadius: BorderRadius.circular(8),
+                                    ),
+                                  ),
+                                ),
+                              ),
+                            ],
+                          ),
+                          Align(
+                            alignment: Alignment.centerLeft,
+                            child: Text(
+                              "Bahan Pengolahan Air",
+                              style: TextStyle(
+                                color: Color.fromRGBO(0, 81, 135, 1),
+                                fontWeight: FontWeight.bold,
+                              ),
+                            ),
+                          ),
+                          Row(
+                            children: [
+                              Expanded(
+                                child: Align(
+                                  alignment: Alignment.centerRight,
+                                  child: Text("Konsentrasi koagulan : "),
+                                ),
+                              ),
+                              Expanded(
+                                flex: 1,
+                                child: TextFormField(
+                                  controller: konsKoagulan,
+                                  keyboardType: TextInputType.number,
+                                  decoration: InputDecoration(
+                                    hintText: '',
+                                    enabledBorder: OutlineInputBorder(
+                                      borderSide: BorderSide(
+                                        color: Colors.blue,
+                                      ),
+                                      borderRadius: BorderRadius.circular(8),
+                                    ),
+                                    focusedBorder: OutlineInputBorder(
+                                      borderSide: BorderSide(
+                                        color: Colors.blue,
+                                        width: 2,
+                                      ),
+                                      borderRadius: BorderRadius.circular(8),
+                                    ),
+                                  ),
+                                ),
+                              ),
+                            ],
+                          ),
+                          SizedBox(height: 10),
+                          Row(
+                            children: [
+                              Expanded(
+                                child: Align(
+                                  alignment: Alignment.centerRight,
+                                  child: Text("SCM : "),
+                                ),
+                              ),
+                              Expanded(
+                                flex: 1,
+                                child: TextFormField(
+                                  controller: scm,
+                                  keyboardType: TextInputType.number,
+                                  decoration: InputDecoration(
+                                    hintText: '',
+                                    enabledBorder: OutlineInputBorder(
+                                      borderSide: BorderSide(
+                                        color: Colors.blue,
+                                      ),
+                                      borderRadius: BorderRadius.circular(8),
+                                    ),
+                                    focusedBorder: OutlineInputBorder(
+                                      borderSide: BorderSide(
+                                        color: Colors.blue,
+                                        width: 2,
+                                      ),
+                                      borderRadius: BorderRadius.circular(8),
+                                    ),
+                                  ),
+                                ),
+                              ),
+                            ],
+                          ),
+                          SizedBox(height: 10),
+                          Row(
+                            children: [
+                              Expanded(
+                                child: Align(
+                                  alignment: Alignment.centerRight,
+                                  child: Text(
+                                    "Frek. Op. Pompa Dosing (Koagulan) : ",
+                                    textAlign: TextAlign.right,
+                                  ),
+                                ),
+                              ),
+                              Expanded(
+                                flex: 1,
+                                child: TextFormField(
+                                  controller: frekKoagulan,
+                                  keyboardType: TextInputType.number,
+                                  decoration: InputDecoration(
+                                    hintText: '',
+                                    enabledBorder: OutlineInputBorder(
+                                      borderSide: BorderSide(
+                                        color: Colors.blue,
+                                      ),
+                                      borderRadius: BorderRadius.circular(8),
+                                    ),
+                                    focusedBorder: OutlineInputBorder(
+                                      borderSide: BorderSide(
+                                        color: Colors.blue,
+                                        width: 2,
+                                      ),
+                                      borderRadius: BorderRadius.circular(8),
+                                    ),
+                                  ),
+                                ),
+                              ),
+                            ],
+                          ),
+                          SizedBox(height: 10),
+                          Row(
+                            children: [
+                              Expanded(
+                                child: Align(
+                                  alignment: Alignment.centerRight,
+                                  child: Text(
+                                    "Frek. Op. Pompa Dosing (Penetral) : ",
+                                    textAlign: TextAlign.right,
+                                  ),
+                                ),
+                              ),
+                              Expanded(
+                                flex: 1,
+                                child: TextFormField(
+                                  controller: frekPenetral,
+                                  keyboardType: TextInputType.number,
+                                  decoration: InputDecoration(
+                                    hintText: '',
+                                    enabledBorder: OutlineInputBorder(
+                                      borderSide: BorderSide(
+                                        color: Colors.blue,
+                                      ),
+                                      borderRadius: BorderRadius.circular(8),
+                                    ),
+                                    focusedBorder: OutlineInputBorder(
+                                      borderSide: BorderSide(
+                                        color: Colors.blue,
+                                        width: 2,
+                                      ),
+                                      borderRadius: BorderRadius.circular(8),
+                                    ),
+                                  ),
+                                ),
+                              ),
+                            ],
+                          ),
+                          SizedBox(height: 10),
+                          Row(
+                            children: [
+                              Expanded(
+                                child: Align(
+                                  alignment: Alignment.centerRight,
+                                  child: Text(
+                                    "Frek. Op. Pompa Dosing (Desinfektan) : ",
+                                    textAlign: TextAlign.right,
+                                  ),
+                                ),
+                              ),
+                              Expanded(
+                                flex: 1,
+                                child: TextFormField(
+                                  controller: frekDesinfektan,
+                                  keyboardType: TextInputType.number,
+                                  decoration: InputDecoration(
+                                    hintText: '',
+                                    enabledBorder: OutlineInputBorder(
+                                      borderSide: BorderSide(
+                                        color: Colors.blue,
+                                      ),
+                                      borderRadius: BorderRadius.circular(8),
+                                    ),
+                                    focusedBorder: OutlineInputBorder(
+                                      borderSide: BorderSide(
+                                        color: Colors.blue,
+                                        width: 2,
+                                      ),
+                                      borderRadius: BorderRadius.circular(8),
+                                    ),
+                                  ),
+                                ),
+                              ),
+                            ],
+                          ),
+                          SizedBox(height: 10),
+                          Row(
+                            children: [
+                              Expanded(
+                                child: Align(
+                                  alignment: Alignment.centerRight,
+                                  child: Text(
+                                    "Tinggi Penyimpanan Koagulan : ",
+                                    textAlign: TextAlign.right,
+                                  ),
+                                ),
+                              ),
+                              Expanded(
+                                flex: 1,
+                                child: TextFormField(
+                                  controller: tinggiPenyimpananKoagulan,
+                                  keyboardType: TextInputType.number,
+                                  decoration: InputDecoration(
+                                    hintText: '',
                                     enabledBorder: OutlineInputBorder(
                                       borderSide: BorderSide(
                                         color: Colors.blue,
@@ -289,6 +525,13 @@ class BahanKimiaScreen extends StatelessWidget {
                                           penetral: penetral.text.toString(),
                                           desinfektan:
                                               desinfektan.text.toString(),
+                                          konsKoagulan: konsKoagulan.text,
+                                          scm: scm.text,
+                                          frekKoagulan: frekKoagulan.text,
+                                          frekPenetral: frekPenetral.text,
+                                          frekDesinfektan: frekDesinfektan.text,
+                                          tinggiPenyimpananKoagulan:
+                                              tinggiPenyimpananKoagulan.text,
                                         );
                                       },
                                       icon: Icon(

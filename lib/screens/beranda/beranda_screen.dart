@@ -154,37 +154,15 @@ class BerandaScreen extends StatelessWidget {
                                 title: 'INTAKE',
                                 icon: Icons.menu,
                                 onTap: () {
-                                  context.goNamed(Routes.intakeScreen);
+                                  context.pushNamed(Routes.intakeScreen);
                                 },
                               ),
-                              Menu_utama(
-                                color: Color.fromRGBO(26, 188, 139, 1),
-                                title: 'Uji Kualitas Air Instalasi Harian',
-                                icon: Icons.menu,
-                                onTap: () {
-                                  // Handle menu tap
-                                  print('Tapped on Menu');
-                                },
-                              ),
-                            ],
-                          ),
-                          Row(
-                            children: [
                               Menu_utama(
                                 color: Color.fromRGBO(26, 131, 188, 1),
                                 title: 'IPA',
                                 icon: Icons.menu,
                                 onTap: () {
-                                  context.goNamed(Routes.ipaScreen);
-                                },
-                              ),
-                              Menu_utama(
-                                color: Color.fromRGBO(26, 188, 139, 1),
-                                title: 'Uji Kualitas Air Instalasi Lengkap',
-                                icon: Icons.menu,
-                                onTap: () {
-                                  // Handle menu tap
-                                  print('Tapped on Menu');
+                                  context.pushNamed(Routes.ipaScreen);
                                 },
                               ),
                             ],
@@ -196,17 +174,15 @@ class BerandaScreen extends StatelessWidget {
                                 title: 'Booster Pump',
                                 icon: Icons.menu,
                                 onTap: () {
-                                  // Handle menu tap
-                                  print('Tapped on Menu');
+                                  context.pushNamed(Routes.boosterScreen);
                                 },
                               ),
                               Menu_utama(
                                 color: Color.fromRGBO(26, 188, 139, 1),
-                                title: 'Uji Kualitas Air Pelanggan',
+                                title: 'Laboratorium',
                                 icon: Icons.menu,
                                 onTap: () {
-                                  // Handle menu tap
-                                  print('Tapped on Menu');
+                                  context.pushNamed(Routes.laboratoriumScreen);
                                 },
                               ),
                             ],
@@ -215,15 +191,34 @@ class BerandaScreen extends StatelessWidget {
                             children: [
                               Menu_utama(
                                 color: Colors.red,
-                                title: 'Padam Listrik',
+                                title: 'Listrik Padam',
                                 icon: Icons.menu,
                                 onTap: () {
-                                  // Handle menu tap
-                                  print('Padam Listrik');
+                                  context.pushNamed(Routes.listrikPadamScreen);
+                                },
+                              ),
+                              Menu_utama(
+                                color: Color.fromARGB(255, 211, 195, 42),
+                                title: 'Pompa OFF',
+                                icon: Icons.menu,
+                                onTap: () {
+                                  context.pushNamed(Routes.pompaPadamScreen);
                                 },
                               ),
                             ],
                           ),
+                          // Row(
+                          //   children: [
+                          //     Menu_utama(
+                          //       color: Colors.red,
+                          //       title: 'Padam Listrik',
+                          //       icon: Icons.menu,
+                          //       onTap: () {
+                          //         context.pushNamed(Routes.listrikPadamScreen);
+                          //       },
+                          //     ),
+                          //   ],
+                          // ),
                         ],
                       ),
                     ),

@@ -1,6 +1,3 @@
-import 'dart:developer';
-import 'dart:math';
-
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:simprodis_flutter/bloc/instalasi_cubit/instalasi_cubit.dart';
@@ -12,19 +9,7 @@ class SpeyClarifScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final TextEditingController penetral = TextEditingController();
-    final TextEditingController koagulan = TextEditingController();
-    final TextEditingController desinfektan = TextEditingController();
-
-    final bahanKimiaCubit = SpeyClarifCubit();
-
-    const List<String> availableItems = [
-      'Apple',
-      'Banana',
-      'Cherry',
-      'Date',
-      'Fig',
-    ];
+    final speyClarifCubit = SpeyClarifCubit();
 
     return Scaffold(
       appBar: AppBar(
@@ -52,7 +37,7 @@ class SpeyClarifScreen extends StatelessWidget {
                     ),
                   ),
                   Text(
-                    'Pengisian Bahan Penetral, koagulan, Desinfektan',
+                    'Spey Clarif',
                     style: TextStyle(
                       fontSize: 22,
                       fontWeight: FontWeight.bold,
@@ -79,7 +64,7 @@ class SpeyClarifScreen extends StatelessWidget {
                           instalasi.idInstalasi == state.selectedInstalasi,
                     )
                     .namaInstalasi;
-
+            speyClarifCubit.fetchData(idInstalasi: state.selectedInstalasi);
             return SingleChildScrollView(
               child: Column(
                 children: [
@@ -146,10 +131,28 @@ class SpeyClarifScreen extends StatelessWidget {
                       child: Column(
                         crossAxisAlignment: CrossAxisAlignment.center,
                         children: [
-                          CheckboxDropdownFromArray(
-                            items: availableItems,
-                            onItemSelected: (List<String> selectedItems) {
-                              inspect(selectedItems);
+                          BlocBuilder<SpeyClarifCubit, SpeyClarifState>(
+                            bloc: speyClarifCubit,
+                            builder: (context, stateSpeyClarif) {
+                              if (stateSpeyClarif is SpeyClarifSuccess) {
+                                List<String> data =
+                                    stateSpeyClarif.data
+                                        .map((e) => e.toString())
+                                        .toList();
+                                return CheckboxDropdownFromArray(
+                                  items: data,
+                                  onItemSelected: (List<String> selectedItems) {
+                                    speyClarifCubit.selectItems(selectedItems);
+                                  },
+                                );
+                              } else if (stateSpeyClarif is SpeyClarifError) {
+                                return Center(
+                                  child: Text(
+                                    "Error: ${stateSpeyClarif.message}",
+                                  ),
+                                );
+                              }
+                              return Text("......");
                             },
                           ),
                           SizedBox(height: 10),
@@ -160,8 +163,7 @@ class SpeyClarifScreen extends StatelessWidget {
                                 SpeyClarifCubit,
                                 SpeyClarifState
                               >(
-                                bloc: bahanKimiaCubit,
-
+                                bloc: speyClarifCubit,
                                 listener: (context, stateSpeyClarif) {
                                   if (stateSpeyClarif is SpeyClarifError) {
                                     ScaffoldMessenger.of(context).showSnackBar(
@@ -169,6 +171,7 @@ class SpeyClarifScreen extends StatelessWidget {
                                         content: Text(
                                           "Gagal : ${stateSpeyClarif.message.toString()}",
                                         ),
+                                        backgroundColor: Colors.red,
                                       ),
                                     );
                                   } else if (stateSpeyClarif
@@ -178,6 +181,7 @@ class SpeyClarifScreen extends StatelessWidget {
                                         content: Text(
                                           "Berhasil : ${stateSpeyClarif.message.toString()}",
                                         ),
+                                        backgroundColor: Colors.green,
                                       ),
                                     );
                                     Navigator.of(context).pop();
@@ -191,14 +195,29 @@ class SpeyClarifScreen extends StatelessWidget {
                                   } else {
                                     return ElevatedButton.icon(
                                       onPressed: () {
-                                        bahanKimiaCubit.simpan(
+                                        if (stateSpeyClarif
+                                                is SpeyClarifSuccess &&
+                                            stateSpeyClarif.selectedItems ==
+                                                []) {
+                                          ScaffoldMessenger.of(
+                                            context,
+                                          ).showSnackBar(
+                                            SnackBar(
+                                              content: Text(
+                                                "Please select at least one item.",
+                                              ),
+                                            ),
+                                          );
+                                          return;
+                                        }
+                                        speyClarifCubit.simpan(
                                           id_instalasi: state.selectedInstalasi,
                                           tanggal: state.selectedTanggal,
                                           jam: state.selectedJam,
-                                          koagulan: koagulan.text.toString(),
-                                          penetral: penetral.text.toString(),
-                                          desinfektan:
-                                              desinfektan.text.toString(),
+                                          spey_clarif:
+                                              (stateSpeyClarif
+                                                      as SpeyClarifSuccess)
+                                                  .selectedItems,
                                         );
                                       },
                                       icon: Icon(

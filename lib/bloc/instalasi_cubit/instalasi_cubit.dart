@@ -30,7 +30,12 @@ class InstalasiCubit extends Cubit<InstalasiState> {
       var jsonResponse = jsonDecode(response.body) as Map<String, dynamic>;
       InstalasiModel data = InstalasiModel.fromJson(jsonResponse);
       if (data.code == 1) {
-        emit(InstalasiSuccess(data: data.data));
+        emit(
+          InstalasiSuccess(
+            data: data.data,
+            selectedJenisInstalasi: kelompokInstalasi,
+          ),
+        );
       } else {
         emit(InstalasiError(message: data.message.toString()));
       }
@@ -48,6 +53,22 @@ class InstalasiCubit extends Cubit<InstalasiState> {
           selectedInstalasi: item,
           selectedJam: currentState.selectedJam,
           selectedTanggal: currentState.selectedTanggal,
+          selectedJenisInstalasi: currentState.selectedJenisInstalasi,
+        ),
+      );
+    }
+  }
+
+  void selectJenisInstalasi(String item) {
+    if (state is InstalasiSuccess) {
+      final currentState = state as InstalasiSuccess;
+      emit(
+        InstalasiSuccess(
+          data: currentState.data,
+          selectedInstalasi: currentState.selectedInstalasi,
+          selectedJam: currentState.selectedJam,
+          selectedTanggal: currentState.selectedTanggal,
+          selectedJenisInstalasi: item,
         ),
       );
     }
@@ -62,6 +83,7 @@ class InstalasiCubit extends Cubit<InstalasiState> {
           selectedInstalasi: currentState.selectedInstalasi,
           selectedJam: item,
           selectedTanggal: currentState.selectedTanggal,
+          selectedJenisInstalasi: currentState.selectedJenisInstalasi,
         ),
       );
     }
@@ -76,6 +98,7 @@ class InstalasiCubit extends Cubit<InstalasiState> {
           selectedInstalasi: currentState.selectedInstalasi,
           selectedJam: currentState.selectedJam,
           selectedTanggal: item,
+          selectedJenisInstalasi: currentState.selectedJenisInstalasi,
         ),
       );
     }

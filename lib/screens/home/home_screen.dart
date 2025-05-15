@@ -84,21 +84,21 @@ class HomeScreen extends StatelessWidget {
                           judul: 'Data Berkala',
                           color: Colors.red,
                           onTap: () {
-                            context.goNamed(Routes.listBerkala);
+                            context.pushNamed(Routes.listBerkala);
                           },
                         ),
                         CardTop(
                           judul: 'Data Keluarga',
                           color: Colors.blue,
                           onTap: () {
-                            context.goNamed(Routes.listKeluarga);
+                            context.pushNamed(Routes.listKeluarga);
                           },
                         ),
                         CardTop(
                           judul: 'Data Jabatan',
                           color: Colors.amber,
                           onTap: () {
-                            context.goNamed(Routes.listJabatan);
+                            context.pushNamed(Routes.listJabatan);
                           },
                         ),
                       ],
@@ -124,35 +124,35 @@ class HomeScreen extends StatelessWidget {
                       judul: 'Riwayat Pendidikan',
                       icon: Icons.school,
                       onTap: () {
-                        context.goNamed(Routes.listPendidikan);
+                        context.pushNamed(Routes.listPendidikan);
                       },
                     ),
                     CardBottom(
                       judul: 'Riwayat Pelatihan',
                       icon: Icons.auto_stories,
                       onTap: () {
-                        context.goNamed(Routes.listKeluarga);
+                        context.pushNamed(Routes.listKeluarga);
                       },
                     ),
                     CardBottom(
                       judul: 'Riwayat Cuti',
                       icon: Icons.mood,
                       onTap: () {
-                        context.goNamed(Routes.listKeluarga);
+                        context.pushNamed(Routes.listKeluarga);
                       },
                     ),
                     CardBottom(
                       judul: 'Riwayat Penghargaan',
                       icon: Icons.emoji_events,
                       onTap: () {
-                        context.goNamed(Routes.listKeluarga);
+                        context.pushNamed(Routes.listKeluarga);
                       },
                     ),
                     CardBottom(
                       judul: 'Riwayat Hukuman',
                       icon: Icons.not_interested,
                       onTap: () {
-                        context.goNamed(Routes.listKeluarga);
+                        context.pushNamed(Routes.listKeluarga);
                       },
                     ),
                   ],

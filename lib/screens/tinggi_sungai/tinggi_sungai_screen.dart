@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:go_router/go_router.dart';
 import 'package:simprodis_flutter/bloc/instalasi_cubit/instalasi_cubit.dart';
 import 'package:simprodis_flutter/bloc/tinggi_sungai_cubit/cubit/tinggi_sungai_cubit.dart';
 
@@ -190,6 +191,16 @@ class TinggiSungaiScreen extends StatelessWidget {
                                         ),
                                       ),
                                     );
+                                  } else if (stateTinggiSungai
+                                      is TinggiSungaiSuccessInsert) {
+                                    ScaffoldMessenger.of(context).showSnackBar(
+                                      SnackBar(
+                                        content: Text(
+                                          "Sukses : ${stateTinggiSungai.message.toString()}",
+                                        ),
+                                      ),
+                                    );
+                                    context.pop();
                                   }
                                 },
                                 builder: (context, stateTinggiSungai) {
@@ -237,127 +248,127 @@ class TinggiSungaiScreen extends StatelessWidget {
                       ),
                     ),
                   ),
-                  Padding(
-                    padding: EdgeInsets.symmetric(horizontal: 20, vertical: 10),
-                    child: Container(
-                      decoration: BoxDecoration(
-                        color: Color.fromRGBO(250, 250, 250, 1),
-                        borderRadius: BorderRadius.circular(8),
-                        boxShadow: [
-                          BoxShadow(
-                            color: Colors.black26,
-                            blurRadius: 4,
-                            offset: Offset(2, 2),
-                          ),
-                        ],
-                      ),
-                      padding: EdgeInsets.all(10),
-                      width: MediaQuery.of(context).size.width,
-                      child: BlocBuilder<TinggiSungaiCubit, TinggiSungaiState>(
-                        bloc: tinggiSungaiCubit,
-                        builder: (context, stateKWH) {
-                          if (stateKWH is TinggiSungaiSuccess) {
-                            return Table(
-                              columnWidths: const {
-                                0: FlexColumnWidth(1),
-                                1: FlexColumnWidth(2),
-                                2: FlexColumnWidth(2),
-                                3: FlexColumnWidth(2),
-                                4: FlexColumnWidth(2),
-                              },
-                              border: TableBorder.all(
-                                width: 1.0,
-                                color: Colors.grey,
-                              ),
-                              children: [
-                                // Table header
-                                TableRow(
-                                  decoration: BoxDecoration(
-                                    color: Colors.grey[300],
-                                  ),
-                                  children: const [
-                                    Padding(
-                                      padding: EdgeInsets.all(8.0),
-                                      child: Text(
-                                        'No',
-                                        style: TextStyle(
-                                          fontWeight: FontWeight.bold,
-                                        ),
-                                      ),
-                                    ),
-                                    Padding(
-                                      padding: EdgeInsets.all(8.0),
-                                      child: Text(
-                                        'Tanggal',
-                                        style: TextStyle(
-                                          fontWeight: FontWeight.bold,
-                                        ),
-                                      ),
-                                    ),
-                                    Padding(
-                                      padding: EdgeInsets.all(8.0),
-                                      child: Text(
-                                        'Jam',
-                                        style: TextStyle(
-                                          fontWeight: FontWeight.bold,
-                                        ),
-                                      ),
-                                    ),
-                                    Padding(
-                                      padding: EdgeInsets.all(8.0),
-                                      child: Text(
-                                        'Tinggi',
-                                        style: TextStyle(
-                                          fontWeight: FontWeight.bold,
-                                        ),
-                                      ),
-                                    ),
-                                  ],
-                                ),
+                  // Padding(
+                  //   padding: EdgeInsets.symmetric(horizontal: 20, vertical: 10),
+                  //   child: Container(
+                  //     decoration: BoxDecoration(
+                  //       color: Color.fromRGBO(250, 250, 250, 1),
+                  //       borderRadius: BorderRadius.circular(8),
+                  //       boxShadow: [
+                  //         BoxShadow(
+                  //           color: Colors.black26,
+                  //           blurRadius: 4,
+                  //           offset: Offset(2, 2),
+                  //         ),
+                  //       ],
+                  //     ),
+                  //     padding: EdgeInsets.all(10),
+                  //     width: MediaQuery.of(context).size.width,
+                  //     child: BlocBuilder<TinggiSungaiCubit, TinggiSungaiState>(
+                  //       bloc: tinggiSungaiCubit,
+                  //       builder: (context, stateKWH) {
+                  //         if (stateKWH is TinggiSungaiSuccess) {
+                  //           return Table(
+                  //             columnWidths: const {
+                  //               0: FlexColumnWidth(1),
+                  //               1: FlexColumnWidth(2),
+                  //               2: FlexColumnWidth(2),
+                  //               3: FlexColumnWidth(2),
+                  //               4: FlexColumnWidth(2),
+                  //             },
+                  //             border: TableBorder.all(
+                  //               width: 1.0,
+                  //               color: Colors.grey,
+                  //             ),
+                  //             children: [
+                  //               // Table header
+                  //               TableRow(
+                  //                 decoration: BoxDecoration(
+                  //                   color: Colors.grey[300],
+                  //                 ),
+                  //                 children: const [
+                  //                   Padding(
+                  //                     padding: EdgeInsets.all(8.0),
+                  //                     child: Text(
+                  //                       'No',
+                  //                       style: TextStyle(
+                  //                         fontWeight: FontWeight.bold,
+                  //                       ),
+                  //                     ),
+                  //                   ),
+                  //                   Padding(
+                  //                     padding: EdgeInsets.all(8.0),
+                  //                     child: Text(
+                  //                       'Tanggal',
+                  //                       style: TextStyle(
+                  //                         fontWeight: FontWeight.bold,
+                  //                       ),
+                  //                     ),
+                  //                   ),
+                  //                   Padding(
+                  //                     padding: EdgeInsets.all(8.0),
+                  //                     child: Text(
+                  //                       'Jam',
+                  //                       style: TextStyle(
+                  //                         fontWeight: FontWeight.bold,
+                  //                       ),
+                  //                     ),
+                  //                   ),
+                  //                   Padding(
+                  //                     padding: EdgeInsets.all(8.0),
+                  //                     child: Text(
+                  //                       'Tinggi',
+                  //                       style: TextStyle(
+                  //                         fontWeight: FontWeight.bold,
+                  //                       ),
+                  //                     ),
+                  //                   ),
+                  //                 ],
+                  //               ),
 
-                                // Table rows from stateKWH.data
-                                ...stateKWH.data.asMap().entries.map((entry) {
-                                  final index = entry.key;
-                                  final data = entry.value;
+                  //               // Table rows from stateKWH.data
+                  //               ...stateKWH.data.asMap().entries.map((entry) {
+                  //                 final index = entry.key;
+                  //                 final data = entry.value;
 
-                                  return TableRow(
-                                    children: [
-                                      Padding(
-                                        padding: const EdgeInsets.all(8.0),
-                                        child: Text((index + 1).toString()),
-                                      ),
-                                      Padding(
-                                        padding: const EdgeInsets.all(8.0),
-                                        child: Text(data.waktuLapor.toString()),
-                                      ),
-                                      Padding(
-                                        padding: const EdgeInsets.all(8.0),
-                                        child: Text(data.jamLapor.toString()),
-                                      ),
-                                      Padding(
-                                        padding: const EdgeInsets.all(8.0),
-                                        child: Text(
-                                          data.tinggiSungai.toString(),
-                                        ),
-                                      ),
-                                    ],
-                                  );
-                                }).toList(),
-                              ],
-                            );
-                          } else if (stateKWH is TinggiSungaiLoading) {
-                            return Center(child: CircularProgressIndicator());
-                          } else if (stateKWH is TinggiSungaiError) {
-                            return Center(
-                              child: Text("Error: ${stateKWH.message}"),
-                            );
-                          } else {
-                            return Center(child: Text("Gagal"));
-                          }
-                        },
-                      ),
-                    ),
-                  ),
+                  //                 return TableRow(
+                  //                   children: [
+                  //                     Padding(
+                  //                       padding: const EdgeInsets.all(8.0),
+                  //                       child: Text((index + 1).toString()),
+                  //                     ),
+                  //                     Padding(
+                  //                       padding: const EdgeInsets.all(8.0),
+                  //                       child: Text(data.waktuLapor.toString()),
+                  //                     ),
+                  //                     Padding(
+                  //                       padding: const EdgeInsets.all(8.0),
+                  //                       child: Text(data.jamLapor.toString()),
+                  //                     ),
+                  //                     Padding(
+                  //                       padding: const EdgeInsets.all(8.0),
+                  //                       child: Text(
+                  //                         data.tinggiSungai.toString(),
+                  //                       ),
+                  //                     ),
+                  //                   ],
+                  //                 );
+                  //               }).toList(),
+                  //             ],
+                  //           );
+                  //         } else if (stateKWH is TinggiSungaiLoading) {
+                  //           return Center(child: CircularProgressIndicator());
+                  //         } else if (stateKWH is TinggiSungaiError) {
+                  //           return Center(
+                  //             child: Text("Error: ${stateKWH.message}"),
+                  //           );
+                  //         } else {
+                  //           return Center(child: Text("Gagal"));
+                  //         }
+                  //       },
+                  //     ),
+                  //   ),
+                  // ),
                 ],
               ),
             );

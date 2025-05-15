@@ -31,6 +31,7 @@ class _IpaScreenState extends State<IpaScreen> {
     super.initState();
     instalasCubit = context.read<InstalasiCubit>();
     instalasCubit.fetchData('ipa');
+    instalasCubit.selectJenisInstalasi('ipa');
   }
 
   // Future<List<Datum>> fetchInstalasi() async {
@@ -489,59 +490,25 @@ class _IpaScreenState extends State<IpaScreen> {
                       mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                       children: [
                         Expanded(
+                          flex: 1,
                           child: _buildInkWellButton(
                             context: context,
                             state: state,
                             text: "Cuci Filter",
-                            routeName: Routes.bahanKimiaScreen,
+                            routeName: Routes.cuciFilterScreen,
                             color: const Color.fromRGBO(87, 230, 175, 1),
                             textColor: Colors.black,
                           ),
                         ),
-                        const SizedBox(width: 10.0),
                         Expanded(
-                          child: _buildInkWellButton(
-                            context: context,
-                            state: state,
-                            text: "SCADA",
-                            routeName:
-                                Routes
-                                    .scadarScreen, // You might want to change this route
-                            color: const Color.fromRGBO(87, 230, 175, 1),
-                            textColor: Colors.black,
-                            textAlign: TextAlign.center,
-                          ),
+                          flex: 1,
+                          child:
+                              Container(), // Empty container to maintain layout structure
                         ),
                       ],
                     ),
                   ],
                 );
-
-                // return GridView.builder(
-                //   gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
-                //     crossAxisCount: 2,
-                //     crossAxisSpacing: 10.0, // Spacing between columns
-                //     mainAxisSpacing: 10.0, // Spacing between rows
-                //     childAspectRatio: 5 / 3, // Adjust as needed for item shape
-                //   ),
-                //   shrinkWrap: true,
-                //   itemCount: 6,
-                //   physics: NeverScrollableScrollPhysics(),
-                //   itemBuilder: (context, index) {
-                //     return _buildInkWellButton(
-                //       context: context,
-                //       state: state,
-                //       text: "Pengisian bahan penjernih air",
-                //       routeName:
-                //           Routes
-                //               .bahanKimiaScreen, // You might want to change this route
-                //       color: const Color.fromRGBO(87, 230, 175, 1),
-                //       textColor: Colors.black,
-                //       textAlign: TextAlign.center,
-                //       fontSize: 12,
-                //     );
-                //   },
-                // );
               } else if (state is InstalasiLoading) {
                 return Center(child: CircularProgressIndicator());
               } else {

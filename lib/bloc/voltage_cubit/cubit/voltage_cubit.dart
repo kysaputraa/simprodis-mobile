@@ -67,7 +67,8 @@ class VoltageCubit extends Cubit<VoltageState> {
       );
       var jsonResponse = jsonDecode(response.body) as Map<String, dynamic>;
       if (jsonResponse['code'] == 1) {
-        fetchData(id_instalasi: id_instalasi, tanggal: tanggal);
+        // fetchData(id_instalasi: id_instalasi, tanggal: tanggal);
+        emit(VoltageSuccessInsert(message: jsonResponse['message']));
       } else {
         emit(VoltageError(message: jsonResponse['message'].toString()));
         fetchData(id_instalasi: id_instalasi, tanggal: tanggal);

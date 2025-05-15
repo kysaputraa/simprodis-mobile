@@ -21,6 +21,11 @@ final class KwhSuccess extends KwhState {
   });
 }
 
+final class KwhSuccessInsert extends KwhState {
+  String? message;
+  KwhSuccessInsert({this.message});
+}
+
 final class KwhError extends KwhState {
   String message;
   KwhError({required this.message});

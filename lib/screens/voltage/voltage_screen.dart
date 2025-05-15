@@ -1,6 +1,7 @@
 import 'dart:developer';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:go_router/go_router.dart';
 import 'package:simprodis_flutter/bloc/instalasi_cubit/instalasi_cubit.dart';
 import 'package:simprodis_flutter/bloc/kwh_cubit/kwh_cubit.dart';
 import 'package:simprodis_flutter/bloc/voltage_cubit/cubit/voltage_cubit.dart';
@@ -293,6 +294,16 @@ class VolatageScreen extends StatelessWidget {
                                         ),
                                       ),
                                     );
+                                  } else if (stateVoltage
+                                      is VoltageSuccessInsert) {
+                                    ScaffoldMessenger.of(context).showSnackBar(
+                                      SnackBar(
+                                        content: Text(
+                                          "Sukses : ${stateVoltage.message.toString()}",
+                                        ),
+                                      ),
+                                    );
+                                    context.pop();
                                   }
                                 },
                                 builder: (context, stateVoltage) {
@@ -340,166 +351,166 @@ class VolatageScreen extends StatelessWidget {
                       ),
                     ),
                   ),
-                  Padding(
-                    padding: EdgeInsets.symmetric(horizontal: 20, vertical: 10),
-                    child: Container(
-                      decoration: BoxDecoration(
-                        color: Color.fromRGBO(250, 250, 250, 1),
-                        borderRadius: BorderRadius.circular(8),
-                        boxShadow: [
-                          BoxShadow(
-                            color: Colors.black26,
-                            blurRadius: 4,
-                            offset: Offset(2, 2),
-                          ),
-                        ],
-                      ),
-                      padding: EdgeInsets.all(10),
-                      width: MediaQuery.of(context).size.width,
-                      child: BlocBuilder<VoltageCubit, VoltageState>(
-                        bloc: voltageCubit,
-                        builder: (context, stateVoltage) {
-                          if (stateVoltage is VoltageSuccess) {
-                            return Table(
-                              columnWidths: const {
-                                0: FlexColumnWidth(1),
-                                1: FlexColumnWidth(2),
-                                2: FlexColumnWidth(2),
-                                3: FlexColumnWidth(2),
-                                4: FlexColumnWidth(2),
-                              },
-                              border: TableBorder.all(
-                                width: 1.0,
-                                color: const Color.fromRGBO(158, 158, 158, 1),
-                              ),
-                              children: [
-                                // Table header
-                                TableRow(
-                                  decoration: BoxDecoration(
-                                    color: Colors.grey[300],
-                                  ),
-                                  children: const [
-                                    Padding(
-                                      padding: EdgeInsets.all(8.0),
-                                      child: Text(
-                                        'No',
-                                        style: TextStyle(
-                                          fontWeight: FontWeight.bold,
-                                        ),
-                                      ),
-                                    ),
-                                    Padding(
-                                      padding: EdgeInsets.all(8.0),
-                                      child: Text(
-                                        'Tanggal',
-                                        style: TextStyle(
-                                          fontWeight: FontWeight.bold,
-                                        ),
-                                      ),
-                                    ),
-                                    Padding(
-                                      padding: EdgeInsets.all(8.0),
-                                      child: Text(
-                                        'Jam',
-                                        style: TextStyle(
-                                          fontWeight: FontWeight.bold,
-                                        ),
-                                      ),
-                                    ),
-                                    Padding(
-                                      padding: EdgeInsets.all(8.0),
-                                      child: Text(
-                                        'RN',
-                                        style: TextStyle(
-                                          fontWeight: FontWeight.bold,
-                                        ),
-                                      ),
-                                    ),
-                                    Padding(
-                                      padding: EdgeInsets.all(8.0),
-                                      child: Text(
-                                        'RS',
-                                        style: TextStyle(
-                                          fontWeight: FontWeight.bold,
-                                        ),
-                                      ),
-                                    ),
-                                    Padding(
-                                      padding: EdgeInsets.all(8.0),
-                                      child: Text(
-                                        'ST',
-                                        style: TextStyle(
-                                          fontWeight: FontWeight.bold,
-                                        ),
-                                      ),
-                                    ),
-                                    Padding(
-                                      padding: EdgeInsets.all(8.0),
-                                      child: Text(
-                                        'RT',
-                                        style: TextStyle(
-                                          fontWeight: FontWeight.bold,
-                                        ),
-                                      ),
-                                    ),
-                                  ],
-                                ),
+                  // Padding(
+                  //   padding: EdgeInsets.symmetric(horizontal: 20, vertical: 10),
+                  //   child: Container(
+                  //     decoration: BoxDecoration(
+                  //       color: Color.fromRGBO(250, 250, 250, 1),
+                  //       borderRadius: BorderRadius.circular(8),
+                  //       boxShadow: [
+                  //         BoxShadow(
+                  //           color: Colors.black26,
+                  //           blurRadius: 4,
+                  //           offset: Offset(2, 2),
+                  //         ),
+                  //       ],
+                  //     ),
+                  //     padding: EdgeInsets.all(10),
+                  //     width: MediaQuery.of(context).size.width,
+                  //     child: BlocBuilder<VoltageCubit, VoltageState>(
+                  //       bloc: voltageCubit,
+                  //       builder: (context, stateVoltage) {
+                  //         if (stateVoltage is VoltageSuccess) {
+                  //           return Table(
+                  //             columnWidths: const {
+                  //               0: FlexColumnWidth(1),
+                  //               1: FlexColumnWidth(2),
+                  //               2: FlexColumnWidth(2),
+                  //               3: FlexColumnWidth(2),
+                  //               4: FlexColumnWidth(2),
+                  //             },
+                  //             border: TableBorder.all(
+                  //               width: 1.0,
+                  //               color: const Color.fromRGBO(158, 158, 158, 1),
+                  //             ),
+                  //             children: [
+                  //               // Table header
+                  //               TableRow(
+                  //                 decoration: BoxDecoration(
+                  //                   color: Colors.grey[300],
+                  //                 ),
+                  //                 children: const [
+                  //                   Padding(
+                  //                     padding: EdgeInsets.all(8.0),
+                  //                     child: Text(
+                  //                       'No',
+                  //                       style: TextStyle(
+                  //                         fontWeight: FontWeight.bold,
+                  //                       ),
+                  //                     ),
+                  //                   ),
+                  //                   Padding(
+                  //                     padding: EdgeInsets.all(8.0),
+                  //                     child: Text(
+                  //                       'Tanggal',
+                  //                       style: TextStyle(
+                  //                         fontWeight: FontWeight.bold,
+                  //                       ),
+                  //                     ),
+                  //                   ),
+                  //                   Padding(
+                  //                     padding: EdgeInsets.all(8.0),
+                  //                     child: Text(
+                  //                       'Jam',
+                  //                       style: TextStyle(
+                  //                         fontWeight: FontWeight.bold,
+                  //                       ),
+                  //                     ),
+                  //                   ),
+                  //                   Padding(
+                  //                     padding: EdgeInsets.all(8.0),
+                  //                     child: Text(
+                  //                       'RN',
+                  //                       style: TextStyle(
+                  //                         fontWeight: FontWeight.bold,
+                  //                       ),
+                  //                     ),
+                  //                   ),
+                  //                   Padding(
+                  //                     padding: EdgeInsets.all(8.0),
+                  //                     child: Text(
+                  //                       'RS',
+                  //                       style: TextStyle(
+                  //                         fontWeight: FontWeight.bold,
+                  //                       ),
+                  //                     ),
+                  //                   ),
+                  //                   Padding(
+                  //                     padding: EdgeInsets.all(8.0),
+                  //                     child: Text(
+                  //                       'ST',
+                  //                       style: TextStyle(
+                  //                         fontWeight: FontWeight.bold,
+                  //                       ),
+                  //                     ),
+                  //                   ),
+                  //                   Padding(
+                  //                     padding: EdgeInsets.all(8.0),
+                  //                     child: Text(
+                  //                       'RT',
+                  //                       style: TextStyle(
+                  //                         fontWeight: FontWeight.bold,
+                  //                       ),
+                  //                     ),
+                  //                   ),
+                  //                 ],
+                  //               ),
 
-                                // Table rows from stateVoltage.data
-                                ...stateVoltage.data.asMap().entries.map((
-                                  entry,
-                                ) {
-                                  final index = entry.key;
-                                  final data = entry.value;
+                  //               // Table rows from stateVoltage.data
+                  //               ...stateVoltage.data.asMap().entries.map((
+                  //                 entry,
+                  //               ) {
+                  //                 final index = entry.key;
+                  //                 final data = entry.value;
 
-                                  return TableRow(
-                                    children: [
-                                      Padding(
-                                        padding: const EdgeInsets.all(5),
-                                        child: Text((index + 1).toString()),
-                                      ),
-                                      Padding(
-                                        padding: const EdgeInsets.all(5),
-                                        child: Text(data.waktuLapor.toString()),
-                                      ),
-                                      Padding(
-                                        padding: const EdgeInsets.all(5),
-                                        child: Text(data.jamLapor.toString()),
-                                      ),
-                                      Padding(
-                                        padding: const EdgeInsets.all(5),
-                                        child: Text(data.voltRn.toString()),
-                                      ),
-                                      Padding(
-                                        padding: const EdgeInsets.all(5),
-                                        child: Text(data.voltRs.toString()),
-                                      ),
-                                      Padding(
-                                        padding: const EdgeInsets.all(5),
-                                        child: Text(data.voltRt.toString()),
-                                      ),
-                                      Padding(
-                                        padding: const EdgeInsets.all(5),
-                                        child: Text(data.voltSt.toString()),
-                                      ),
-                                    ],
-                                  );
-                                }).toList(),
-                              ],
-                            );
-                          } else if (stateVoltage is VoltageLoading) {
-                            return Center(child: CircularProgressIndicator());
-                          } else if (stateVoltage is VoltageError) {
-                            return Center(
-                              child: Text("Error: ${stateVoltage.message}"),
-                            );
-                          } else {
-                            return Center(child: Text("Gagal"));
-                          }
-                        },
-                      ),
-                    ),
-                  ),
+                  //                 return TableRow(
+                  //                   children: [
+                  //                     Padding(
+                  //                       padding: const EdgeInsets.all(5),
+                  //                       child: Text((index + 1).toString()),
+                  //                     ),
+                  //                     Padding(
+                  //                       padding: const EdgeInsets.all(5),
+                  //                       child: Text(data.waktuLapor.toString()),
+                  //                     ),
+                  //                     Padding(
+                  //                       padding: const EdgeInsets.all(5),
+                  //                       child: Text(data.jamLapor.toString()),
+                  //                     ),
+                  //                     Padding(
+                  //                       padding: const EdgeInsets.all(5),
+                  //                       child: Text(data.voltRn.toString()),
+                  //                     ),
+                  //                     Padding(
+                  //                       padding: const EdgeInsets.all(5),
+                  //                       child: Text(data.voltRs.toString()),
+                  //                     ),
+                  //                     Padding(
+                  //                       padding: const EdgeInsets.all(5),
+                  //                       child: Text(data.voltRt.toString()),
+                  //                     ),
+                  //                     Padding(
+                  //                       padding: const EdgeInsets.all(5),
+                  //                       child: Text(data.voltSt.toString()),
+                  //                     ),
+                  //                   ],
+                  //                 );
+                  //               }).toList(),
+                  //             ],
+                  //           );
+                  //         } else if (stateVoltage is VoltageLoading) {
+                  //           return Center(child: CircularProgressIndicator());
+                  //         } else if (stateVoltage is VoltageError) {
+                  //           return Center(
+                  //             child: Text("Error: ${stateVoltage.message}"),
+                  //           );
+                  //         } else {
+                  //           return Center(child: Text("Gagal"));
+                  //         }
+                  //       },
+                  //     ),
+                  //   ),
+                  // ),
                 ],
               ),
             );

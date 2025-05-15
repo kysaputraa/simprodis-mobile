@@ -14,6 +14,14 @@ class PhScreen extends StatelessWidget {
     final TextEditingController reservoir1Controller = TextEditingController();
     final TextEditingController reservoir2Controller = TextEditingController();
     final TextEditingController sisaChlorController = TextEditingController();
+    final TextEditingController kekeruhanIntakeController =
+        TextEditingController();
+    final TextEditingController kekeruhanSedimentasiController =
+        TextEditingController();
+    final TextEditingController kekeruhanReservoir1Controller =
+        TextEditingController();
+    final TextEditingController kekeruhanReservoir2Controller =
+        TextEditingController();
 
     final phCubit = PhCubit();
 
@@ -43,7 +51,7 @@ class PhScreen extends StatelessWidget {
                     ),
                   ),
                   Text(
-                    'Pengukuran pH & Sisa Chlor',
+                    'Pengukuran pH, Kekeruhan dan Sisa Chlor',
                     style: TextStyle(
                       fontSize: 22,
                       fontWeight: FontWeight.bold,
@@ -153,7 +161,7 @@ class PhScreen extends StatelessWidget {
                                 ),
                               ),
                               Expanded(
-                                flex: 3,
+                                flex: 1,
                                 child: TextFormField(
                                   controller: airBakuController,
                                   keyboardType: TextInputType.number,
@@ -187,7 +195,7 @@ class PhScreen extends StatelessWidget {
                                 ),
                               ),
                               Expanded(
-                                flex: 3,
+                                flex: 1,
                                 child: TextFormField(
                                   controller: clarifController,
                                   keyboardType: TextInputType.number,
@@ -221,7 +229,7 @@ class PhScreen extends StatelessWidget {
                                 ),
                               ),
                               Expanded(
-                                flex: 3,
+                                flex: 1,
                                 child: TextFormField(
                                   controller: produksiController,
                                   keyboardType: TextInputType.number,
@@ -255,7 +263,7 @@ class PhScreen extends StatelessWidget {
                                 ),
                               ),
                               Expanded(
-                                flex: 3,
+                                flex: 1,
                                 child: TextFormField(
                                   controller: reservoir1Controller,
                                   keyboardType: TextInputType.number,
@@ -289,9 +297,77 @@ class PhScreen extends StatelessWidget {
                                 ),
                               ),
                               Expanded(
-                                flex: 3,
+                                flex: 1,
                                 child: TextFormField(
                                   controller: reservoir2Controller,
+                                  keyboardType: TextInputType.number,
+                                  decoration: InputDecoration(
+                                    hintText: '',
+                                    enabledBorder: OutlineInputBorder(
+                                      borderSide: BorderSide(
+                                        color: Colors.blue,
+                                      ),
+                                      borderRadius: BorderRadius.circular(8),
+                                    ),
+                                    focusedBorder: OutlineInputBorder(
+                                      borderSide: BorderSide(
+                                        color: Colors.blue,
+                                        width: 2,
+                                      ),
+                                      borderRadius: BorderRadius.circular(8),
+                                    ),
+                                  ),
+                                ),
+                              ),
+                            ],
+                          ),
+                          Divider(color: Colors.grey, thickness: 1, height: 20),
+                          Row(
+                            children: [
+                              Expanded(
+                                child: Align(
+                                  alignment: Alignment.centerRight,
+                                  child: Text("Sisa Chlor : "),
+                                ),
+                              ),
+                              Expanded(
+                                flex: 1,
+                                child: TextFormField(
+                                  controller: sisaChlorController,
+                                  keyboardType: TextInputType.number,
+                                  decoration: InputDecoration(
+                                    hintText: '',
+                                    enabledBorder: OutlineInputBorder(
+                                      borderSide: BorderSide(
+                                        color: Colors.blue,
+                                      ),
+                                      borderRadius: BorderRadius.circular(8),
+                                    ),
+                                    focusedBorder: OutlineInputBorder(
+                                      borderSide: BorderSide(
+                                        color: Colors.blue,
+                                        width: 2,
+                                      ),
+                                      borderRadius: BorderRadius.circular(8),
+                                    ),
+                                  ),
+                                ),
+                              ),
+                            ],
+                          ),
+                          Divider(color: Colors.grey, thickness: 1, height: 20),
+                          Row(
+                            children: [
+                              Expanded(
+                                child: Align(
+                                  alignment: Alignment.centerRight,
+                                  child: Text("Kekeruhan di Intake : "),
+                                ),
+                              ),
+                              Expanded(
+                                flex: 1,
+                                child: TextFormField(
+                                  controller: kekeruhanIntakeController,
                                   keyboardType: TextInputType.number,
                                   decoration: InputDecoration(
                                     hintText: '',
@@ -319,13 +395,13 @@ class PhScreen extends StatelessWidget {
                               Expanded(
                                 child: Align(
                                   alignment: Alignment.centerRight,
-                                  child: Text("Sisa Chlor : "),
+                                  child: Text("Kekeruhan di Sedimentasi : "),
                                 ),
                               ),
                               Expanded(
-                                flex: 3,
+                                flex: 1,
                                 child: TextFormField(
-                                  controller: sisaChlorController,
+                                  controller: kekeruhanSedimentasiController,
                                   keyboardType: TextInputType.number,
                                   decoration: InputDecoration(
                                     hintText: '',
@@ -348,6 +424,74 @@ class PhScreen extends StatelessWidget {
                             ],
                           ),
                           SizedBox(height: 10),
+                          Row(
+                            children: [
+                              Expanded(
+                                child: Align(
+                                  alignment: Alignment.centerRight,
+                                  child: Text("Kekeruhan di Reservoir 1 : "),
+                                ),
+                              ),
+                              Expanded(
+                                flex: 1,
+                                child: TextFormField(
+                                  controller: kekeruhanReservoir1Controller,
+                                  keyboardType: TextInputType.number,
+                                  decoration: InputDecoration(
+                                    hintText: '',
+                                    enabledBorder: OutlineInputBorder(
+                                      borderSide: BorderSide(
+                                        color: Colors.blue,
+                                      ),
+                                      borderRadius: BorderRadius.circular(8),
+                                    ),
+                                    focusedBorder: OutlineInputBorder(
+                                      borderSide: BorderSide(
+                                        color: Colors.blue,
+                                        width: 2,
+                                      ),
+                                      borderRadius: BorderRadius.circular(8),
+                                    ),
+                                  ),
+                                ),
+                              ),
+                            ],
+                          ),
+                          SizedBox(height: 10),
+                          Row(
+                            children: [
+                              Expanded(
+                                child: Align(
+                                  alignment: Alignment.centerRight,
+                                  child: Text("Kekeruhan di Reservoir 2 : "),
+                                ),
+                              ),
+                              Expanded(
+                                flex: 1,
+                                child: TextFormField(
+                                  controller: kekeruhanReservoir2Controller,
+                                  keyboardType: TextInputType.number,
+                                  decoration: InputDecoration(
+                                    hintText: '',
+                                    enabledBorder: OutlineInputBorder(
+                                      borderSide: BorderSide(
+                                        color: Colors.blue,
+                                      ),
+                                      borderRadius: BorderRadius.circular(8),
+                                    ),
+                                    focusedBorder: OutlineInputBorder(
+                                      borderSide: BorderSide(
+                                        color: Colors.blue,
+                                        width: 2,
+                                      ),
+                                      borderRadius: BorderRadius.circular(8),
+                                    ),
+                                  ),
+                                ),
+                              ),
+                            ],
+                          ),
+
                           Center(
                             child: SizedBox(
                               width: MediaQuery.of(context).size.width * 0.5,
@@ -388,20 +532,26 @@ class PhScreen extends StatelessWidget {
                                           id_instalasi: state.selectedInstalasi,
                                           tanggal: state.selectedTanggal,
                                           jam: state.selectedJam,
-                                          phAirBaku:
-                                              airBakuController.text.toString(),
-                                          phAirClarif:
-                                              clarifController.text.toString(),
+                                          phAirBaku: airBakuController.text,
+                                          phAirClarif: clarifController.text,
                                           phAirProduksi:
-                                              produksiController.text
-                                                  .toString(),
+                                              produksiController.text,
                                           phReservoir1:
-                                              reservoir1Controller.text
-                                                  .toString(),
+                                              reservoir1Controller.text,
                                           phReservoir2:
-                                              reservoir2Controller.text
-                                                  .toString(),
-                                          // phSisaChlor: sisaChlorController.text.toString(),
+                                              reservoir2Controller.text,
+                                          sisaChlor: sisaChlorController.text,
+                                          kekeruhanIntake:
+                                              kekeruhanIntakeController.text,
+                                          kekeruhanSedimentasi:
+                                              kekeruhanSedimentasiController
+                                                  .text,
+                                          kekeruhanReservoir1:
+                                              kekeruhanReservoir1Controller
+                                                  .text,
+                                          kekeruhanReservoir2:
+                                              kekeruhanReservoir2Controller
+                                                  .text,
                                         );
                                       },
                                       icon: Icon(

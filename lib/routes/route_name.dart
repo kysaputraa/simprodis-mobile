@@ -5,6 +5,10 @@ abstract class Routes {
   static const berandaScreen = 'berandaScreen';
   static const intakeScreen = 'intakeScreen';
   static const ipaScreen = 'ipaScreen';
+  static const boosterScreen = 'boosterScreen';
+  static const laboratoriumScreen = 'laboratoriumScreen';
+  static const listrikPadamScreen = 'listrikPadamScreen';
+  static const pompaPadamScreen = 'pompaPadamScreen';
   static const kwhScreen = 'kwhScreen';
   static const tinggiSungaiScreen = 'tinggiSungaiScreen';
   static const voltageScreen = 'voltageScreen';
@@ -23,6 +27,10 @@ abstract class Routes {
   static const flowmeterScreen = 'flowmeterScreen';
   static const scadarScreen = 'scadarScreen';
   static const speyClarifScreen = 'speyClarifScreen';
+  static const cuciFilterScreen = 'cuciFilterScreen';
+  static const kualitasAirHarianScreen = 'kualitasAirHarianScreen';
+  static const kualitasAirLengkapScreen = 'kualitasAirLengkapScreen';
+  static const kualitasAirKonsumenScreen = 'kualitasAirKonsumenScreen';
 
   //
   static const homeScreen = 'homeScreen';

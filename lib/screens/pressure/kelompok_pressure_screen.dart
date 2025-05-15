@@ -237,7 +237,7 @@ class _KelompokPressureScreenState extends State<KelompokPressureScreen> {
                       width: MediaQuery.of(context).size.width * 0.5,
                       child: ElevatedButton.icon(
                         onPressed: () {
-                          context.goNamed(
+                          context.pushNamed(
                             Routes.pressureScreen,
                             queryParameters: {
                               'idKelompok': '$selectedKelompok',

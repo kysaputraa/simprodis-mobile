@@ -1,8 +1,6 @@
 import 'dart:convert';
-
 import 'package:bloc/bloc.dart';
 import 'package:flutter_dotenv/flutter_dotenv.dart';
-import 'package:meta/meta.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:simprodis_flutter/model/flowmeter_model.dart';
 import 'package:http/http.dart' as http;
@@ -42,6 +40,7 @@ class FlowmeterCubit extends Cubit<FlowmeterState> {
     required idFlowmeter,
     required debit,
     required standMeter,
+    required idInstalasi,
   }) async {
     String? baseUrl = dotenv.env['BASE_URL'];
 
@@ -74,6 +73,7 @@ class FlowmeterCubit extends Cubit<FlowmeterState> {
         emit(FlowmeterSuccessInsert());
       } else {
         emit(FlowmeterError(message: jsonResponse['message'].toString()));
+        fetchData(idInstalasi: idInstalasi);
       }
     } catch (e) {
       emit(FlowmeterError(message: e.toString()));

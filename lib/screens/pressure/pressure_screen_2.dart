@@ -33,13 +33,23 @@ class PressureScreen2State extends State<PressureScreen2> {
             child: Column(
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
-                Text(
-                  "INTAKE",
-                  style: TextStyle(
-                    fontSize: 42,
-                    fontWeight: FontWeight.bold,
-                    color: Colors.white,
-                  ),
+                BlocBuilder<InstalasiCubit, InstalasiState>(
+                  builder: (context, state) {
+                    if (state is InstalasiSuccess) {
+                      return Text(
+                        "${state.selectedJenisInstalasi}".toUpperCase(),
+                        style: TextStyle(
+                          fontSize: 42,
+                          fontWeight: FontWeight.bold,
+                          color: Colors.white,
+                        ),
+                      );
+                    } else if (state is InstalasiLoading) {
+                      return Center(child: CircularProgressIndicator());
+                    } else {
+                      return Center(child: Text("Gagal"));
+                    }
+                  },
                 ),
                 Text(
                   'Kelompok Press Gab',
@@ -267,7 +277,9 @@ class PressureScreen2State extends State<PressureScreen2> {
                           } else if (statePressure is PressureError) {
                             ScaffoldMessenger.of(context).showSnackBar(
                               SnackBar(
-                                content: Text("Gagal menyimpan data"),
+                                content: Text(
+                                  "Gagal : ${statePressure.message}",
+                                ),
                                 backgroundColor: Colors.red,
                               ),
                             );
@@ -282,6 +294,7 @@ class PressureScreen2State extends State<PressureScreen2> {
                                 if (selectedPressGab != null &&
                                     pressureController.text.isNotEmpty) {
                                   pressureCubit.simpan2(
+                                    idInstalasi: state.selectedInstalasi,
                                     tanggal: state.selectedTanggal,
                                     jam: state.selectedJam,
                                     idPressGab: selectedPressGab,

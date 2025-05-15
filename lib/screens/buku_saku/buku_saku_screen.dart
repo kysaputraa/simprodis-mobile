@@ -60,7 +60,7 @@ class BukuSakuScreen extends StatelessWidget {
 
                           return GestureDetector(
                             onTap: () {
-                              context.goNamed(
+                              context.pushNamed(
                                 Routes.readPdf,
                                 queryParameters: {
                                   'file': '${data[index].file}',

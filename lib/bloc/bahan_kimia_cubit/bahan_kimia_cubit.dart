@@ -16,6 +16,12 @@ class BahanKimiaCubit extends Cubit<BahanKimiaState> {
     required penetral,
     required koagulan,
     required desinfektan,
+    required konsKoagulan,
+    required scm,
+    required frekKoagulan,
+    required frekPenetral,
+    required frekDesinfektan,
+    required tinggiPenyimpananKoagulan,
   }) async {
     String? baseUrl = dotenv.env['BASE_URL'];
 
@@ -34,9 +40,15 @@ class BahanKimiaCubit extends Cubit<BahanKimiaState> {
           "id_petugas_hp": idPetugasHP,
           "waktu_lapor": tanggal,
           "jam_lapor": jam,
-          "isi_penjernih": penetral,
+          "isi_penetral": penetral,
           "isi_koagulan": koagulan,
           "isi_desinfektan": desinfektan,
+          "kons_koagulan_campuran": konsKoagulan,
+          "scm": scm,
+          "frek_pompa_koagulan": frekKoagulan,
+          "frek_pompa_penetral": frekPenetral,
+          "frek_pompa_desinfektan": frekDesinfektan,
+          "tinggi_penyimpanan_koagulan": tinggiPenyimpananKoagulan,
           "username": username,
         },
       );

@@ -72,7 +72,11 @@ class _CheckboxDropdownFromArrayState extends State<CheckboxDropdownFromArray> {
           );
         }).toList();
       },
-      child: Padding(
+      child: Container(
+        decoration: BoxDecoration(
+          border: Border.all(color: Colors.grey),
+          borderRadius: BorderRadius.circular(4.0),
+        ),
         padding: const EdgeInsets.all(8.0),
         child: Row(
           mainAxisAlignment: MainAxisAlignment.spaceBetween,

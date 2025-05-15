@@ -1,4 +1,4 @@
-package com.example.simprodis_flutter
+package com.tirtamayang.simpro
 
 import io.flutter.embedding.android.FlutterActivity
 

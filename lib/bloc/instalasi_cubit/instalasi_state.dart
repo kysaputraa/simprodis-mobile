@@ -9,11 +9,13 @@ final class InstalasiLoading extends InstalasiState {}
 final class InstalasiSuccess extends InstalasiState {
   final List<Datum> data;
   final String? selectedInstalasi;
+  final String? selectedJenisInstalasi;
   final String? selectedTanggal;
   final String? selectedJam;
   InstalasiSuccess({
     required this.data,
     this.selectedInstalasi,
+    this.selectedJenisInstalasi,
     this.selectedTanggal,
     this.selectedJam,
   });

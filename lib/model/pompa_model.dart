@@ -27,12 +27,12 @@ class PompaModel {
 
 class DataPompa {
   String idPompa;
-  String namaPompa;
-  String idInstalasi;
-  String speksifikasi;
-  String statusAktif;
-  dynamic keterangan;
-  String idKlpPompa;
+  String? namaPompa;
+  String? idInstalasi;
+  String? speksifikasi;
+  String? statusAktif;
+  String? keterangan;
+  String? idKlpPompa;
 
   DataPompa({
     required this.idPompa,

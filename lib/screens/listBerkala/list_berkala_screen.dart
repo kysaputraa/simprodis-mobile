@@ -78,7 +78,7 @@ class ListBerkala extends StatelessWidget {
                             ),
                             GestureDetector(
                               onTap: () {
-                                context.goNamed(
+                                context.pushNamed(
                                   Routes.readPdf,
                                   queryParameters: {
                                     'file': '${data[index].file}',

@@ -81,6 +81,34 @@ class _IntakeScreenState extends State<IntakeScreen> {
     }
   }
 
+  void _selectDateTime(BuildContext context) async {
+    final DateTime? pickedDate = await showDatePicker(
+      context: context,
+      initialDate: _selectedDate ?? DateTime.now(),
+      firstDate: DateTime(2000),
+      lastDate: DateTime(2101),
+    );
+
+    if (pickedDate != null) {
+      final TimeOfDay? pickedTime = await showTimePicker(
+        context: context,
+        initialTime: TimeOfDay.fromDateTime(_selectedDate ?? DateTime.now()),
+        builder: (BuildContext context, Widget? child) {
+          return MediaQuery(
+            data: MediaQuery.of(context).copyWith(alwaysUse24HourFormat: true),
+            child: child!,
+          );
+        },
+      );
+
+      if (pickedTime != null) {
+        final formattedDateTime =
+            "${pickedDate.year}-${pickedDate.month.toString().padLeft(2, '0')}-${pickedDate.day.toString().padLeft(2, '0')} ${pickedTime.hour.toString().padLeft(2, '0')}:${pickedTime.minute.toString().padLeft(2, '0')}";
+        log("Selected DateTime: $formattedDateTime");
+      }
+    }
+  }
+
   void navigateIfDataExists({
     required BuildContext context,
     required dynamic idInstalasi,
@@ -105,7 +133,7 @@ class _IntakeScreenState extends State<IntakeScreen> {
       return;
     }
 
-    context.goNamed(routeName);
+    context.pushNamed(routeName);
   }
 
   @override
@@ -216,6 +244,7 @@ class _IntakeScreenState extends State<IntakeScreen> {
                                     log(
                                       'Selected Instalasi Name: $selectedInstalasiName',
                                     );
+
                                     instalasCubit.selectInstalasi(newValue!);
                                   },
                                   items:
@@ -377,7 +406,7 @@ class _IntakeScreenState extends State<IntakeScreen> {
                     Center(
                       child: InkWell(
                         onTap: () {
-                          // context.goNamed(Routes.kwhScreen);
+                          // context.pushNamed(Routes.kwhScreen);
                           navigateIfDataExists(
                             context: context,
                             idInstalasi: state.selectedInstalasi,

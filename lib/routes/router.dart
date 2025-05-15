@@ -5,15 +5,23 @@ import 'package:shared_preferences/shared_preferences.dart';
 import 'package:simprodis_flutter/screens/ConvexBottom/convexBottom.dart';
 import 'package:simprodis_flutter/screens/bahan_kimia_screen.dart';
 import 'package:simprodis_flutter/screens/beranda/beranda_screen.dart';
+import 'package:simprodis_flutter/screens/cuci_filter_screen.dart';
 import 'package:simprodis_flutter/screens/flowmeter_screen.dart';
 import 'package:simprodis_flutter/screens/home/home_screen.dart';
+import 'package:simprodis_flutter/screens/intake/booster_screen.dart';
 import 'package:simprodis_flutter/screens/intake/intake_screen.dart';
 import 'package:simprodis_flutter/screens/intake/ipa_screen.dart';
+import 'package:simprodis_flutter/screens/intake/laboratorium_screen.dart';
+import 'package:simprodis_flutter/screens/listrik_padam_screen.dart';
+import 'package:simprodis_flutter/screens/kualitas_air_konsumen_screen.dart';
+import 'package:simprodis_flutter/screens/kualtias_air_harian.dart';
+import 'package:simprodis_flutter/screens/kualtias_air_lengkap_screen.dart';
 import 'package:simprodis_flutter/screens/kwh/kwh_screen.dart';
 import 'package:simprodis_flutter/screens/login/LoginScreen.dart';
 import 'package:simprodis_flutter/screens/ph_screen.dart';
 import 'package:simprodis_flutter/screens/pompa/kelompok_pompa_screen.dart';
 import 'package:simprodis_flutter/screens/pompa/pompa_screen.dart';
+import 'package:simprodis_flutter/screens/pompa_padam_screen.dart';
 // import 'package:simprodis_flutter/screens/pressure/kelompok_pressure_screen.dart';
 // import 'package:simprodis_flutter/screens/pressure/pressure_screen.dart';
 import 'package:simprodis_flutter/screens/pressure/pressure_screen_2.dart';
@@ -229,6 +237,65 @@ final router = GoRouter(
               name: Routes.speyClarifScreen,
               builder: (BuildContext context, GoRouterState state) {
                 return SpeyClarifScreen();
+              },
+            ),
+            GoRoute(
+              path: '/${Routes.cuciFilterScreen}',
+              name: Routes.cuciFilterScreen,
+              builder: (BuildContext context, GoRouterState state) {
+                return CuciFilterScreen();
+              },
+            ),
+          ],
+        ),
+        GoRoute(
+          path: '/${Routes.boosterScreen}',
+          name: Routes.boosterScreen,
+          builder: (BuildContext context, GoRouterState state) {
+            return BoosterScreen();
+          },
+        ),
+
+        GoRoute(
+          path: '/${Routes.listrikPadamScreen}',
+          name: Routes.listrikPadamScreen,
+          builder: (BuildContext context, GoRouterState state) {
+            return ListrikPadamScreen();
+          },
+        ),
+        GoRoute(
+          path: '/${Routes.pompaPadamScreen}',
+          name: Routes.pompaPadamScreen,
+          builder: (BuildContext context, GoRouterState state) {
+            return PompaPadamScreen();
+          },
+        ),
+        GoRoute(
+          path: '/${Routes.laboratoriumScreen}',
+          name: Routes.laboratoriumScreen,
+          builder: (BuildContext context, GoRouterState state) {
+            return LaboratoriumScreen();
+          },
+          routes: [
+            GoRoute(
+              path: '/${Routes.kualitasAirHarianScreen}',
+              name: Routes.kualitasAirHarianScreen,
+              builder: (BuildContext context, GoRouterState state) {
+                return KualitasAirHarianScreen();
+              },
+            ),
+            GoRoute(
+              path: '/${Routes.kualitasAirLengkapScreen}',
+              name: Routes.kualitasAirLengkapScreen,
+              builder: (BuildContext context, GoRouterState state) {
+                return KualitasAirLengkapScreen();
+              },
+            ),
+            GoRoute(
+              path: '/${Routes.kualitasAirKonsumenScreen}',
+              name: Routes.kualitasAirKonsumenScreen,
+              builder: (BuildContext context, GoRouterState state) {
+                return KualitasAirKonsumenScreen();
               },
             ),
           ],

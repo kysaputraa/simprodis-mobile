@@ -1,5 +1,4 @@
 import 'dart:convert';
-import 'dart:developer';
 import 'package:bloc/bloc.dart';
 import 'package:flutter_dotenv/flutter_dotenv.dart';
 import 'package:shared_preferences/shared_preferences.dart';
@@ -69,7 +68,8 @@ class KwhCubit extends Cubit<KwhState> {
       );
       var jsonResponse = jsonDecode(response.body) as Map<String, dynamic>;
       if (jsonResponse['code'] == 1) {
-        fetchData(id_instalasi: id_instalasi, tanggal: tanggal);
+        emit(KwhSuccessInsert(message: jsonResponse['message']));
+        // fetchData(id_instalasi: id_instalasi, tanggal: tanggal);
       } else {
         emit(KwhError(message: jsonResponse['message'].toString()));
         fetchData(id_instalasi: id_instalasi, tanggal: tanggal);

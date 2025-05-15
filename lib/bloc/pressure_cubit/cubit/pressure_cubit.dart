@@ -108,6 +108,7 @@ class PressureCubit extends Cubit<PressureState> {
     required jam,
     required idPressGab,
     required pressure,
+    required idInstalasi,
   }) async {
     String? baseUrl = dotenv.env['BASE_URL'];
 
@@ -137,6 +138,7 @@ class PressureCubit extends Cubit<PressureState> {
         emit(PressureSuccessInsert());
       } else {
         emit(PressureError(message: jsonResponse['message'].toString()));
+        fetchData2(idInstalasi: idInstalasi);
       }
     } catch (e) {
       emit(PressureError(message: e.toString()));

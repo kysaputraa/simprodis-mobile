@@ -67,13 +67,23 @@ class _KelompokPompaScreenState extends State<KelompokPompaScreen> {
             child: Column(
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
-                Text(
-                  "INTAKE",
-                  style: TextStyle(
-                    fontSize: 42,
-                    fontWeight: FontWeight.bold,
-                    color: Colors.white,
-                  ),
+                BlocBuilder<InstalasiCubit, InstalasiState>(
+                  builder: (context, state) {
+                    if (state is InstalasiSuccess) {
+                      return Text(
+                        "${state.selectedJenisInstalasi}".toUpperCase(),
+                        style: TextStyle(
+                          fontSize: 42,
+                          fontWeight: FontWeight.bold,
+                          color: Colors.white,
+                        ),
+                      );
+                    } else if (state is InstalasiLoading) {
+                      return Center(child: CircularProgressIndicator());
+                    } else {
+                      return Center(child: Text("Gagal"));
+                    }
+                  },
                 ),
                 Text(
                   'Kelompok Pompa',
@@ -135,12 +145,12 @@ class _KelompokPompaScreenState extends State<KelompokPompaScreen> {
                                   color: Color.fromRGBO(0, 81, 135, 1),
                                 ),
                               ),
-                              Text(
-                                "Jumlah Kelompok Pompa : ${jumlahKelompok}",
-                                style: TextStyle(
-                                  color: Color.fromRGBO(0, 81, 135, 1),
-                                ),
-                              ),
+                              // Text(
+                              //   "Jumlah Kelompok Pompa : ${jumlahKelompok}",
+                              //   style: TextStyle(
+                              //     color: Color.fromRGBO(0, 81, 135, 1),
+                              //   ),
+                              // ),
                             ],
                           ),
                           BlocBuilder<InstalasiCubit, InstalasiState>(
@@ -239,7 +249,7 @@ class _KelompokPompaScreenState extends State<KelompokPompaScreen> {
                       width: MediaQuery.of(context).size.width * 0.5,
                       child: ElevatedButton.icon(
                         onPressed: () {
-                          context.goNamed(
+                          context.pushNamed(
                             Routes.pompaScreen,
                             queryParameters: {
                               'idKelompok': '$selectedKelompok',

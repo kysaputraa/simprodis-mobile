@@ -32,16 +32,26 @@ class ReservoirScreen2State extends State<ReservoirScreen2> {
             child: Column(
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
-                Text(
-                  "INTAKE",
-                  style: TextStyle(
-                    fontSize: 42,
-                    fontWeight: FontWeight.bold,
-                    color: Colors.white,
-                  ),
+                BlocBuilder<InstalasiCubit, InstalasiState>(
+                  builder: (context, state) {
+                    if (state is InstalasiSuccess) {
+                      return Text(
+                        "${state.selectedJenisInstalasi}".toUpperCase(),
+                        style: TextStyle(
+                          fontSize: 42,
+                          fontWeight: FontWeight.bold,
+                          color: Colors.white,
+                        ),
+                      );
+                    } else if (state is InstalasiLoading) {
+                      return Center(child: CircularProgressIndicator());
+                    } else {
+                      return Center(child: Text("Gagal"));
+                    }
+                  },
                 ),
                 Text(
-                  'Kelompok Press Gab',
+                  'Tinggi Reservoir',
                   style: TextStyle(
                     fontSize: 32,
                     fontWeight: FontWeight.bold,
@@ -266,7 +276,9 @@ class ReservoirScreen2State extends State<ReservoirScreen2> {
                           } else if (stateReservoir is ReservoirError) {
                             ScaffoldMessenger.of(context).showSnackBar(
                               SnackBar(
-                                content: Text("Gagal menyimpan data"),
+                                content: Text(
+                                  "Gagal : ${stateReservoir.message}",
+                                ),
                                 backgroundColor: Colors.red,
                               ),
                             );
@@ -281,6 +293,7 @@ class ReservoirScreen2State extends State<ReservoirScreen2> {
                                 if (selectedPressGab != null &&
                                     tinggiController.text.isNotEmpty) {
                                   pressureCubit.simpan2(
+                                    idInstalasi: state.selectedInstalasi,
                                     tanggal: state.selectedTanggal,
                                     jam: state.selectedJam,
                                     idPressGab: selectedPressGab,

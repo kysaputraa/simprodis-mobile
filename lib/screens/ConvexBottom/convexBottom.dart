@@ -1,11 +1,11 @@
 import 'package:convex_bottom_bar/convex_bottom_bar.dart';
 import 'package:flutter/material.dart';
+import 'package:simprodis_flutter/screens/activity_screen.dart';
 import 'package:simprodis_flutter/screens/beranda/beranda_screen.dart';
 import 'package:simprodis_flutter/screens/buku_saku/buku_saku_screen.dart';
 import 'package:simprodis_flutter/screens/home/home_screen.dart';
 import 'package:simprodis_flutter/screens/kartu/kartu_screen.dart';
 import 'package:simprodis_flutter/screens/userSetting/user_settings.dart';
-import 'package:simprodis_flutter/widgets/DesignCardOne.dart';
 
 class HelloConvexAppBar extends StatefulWidget {
   @override
@@ -13,14 +13,14 @@ class HelloConvexAppBar extends StatefulWidget {
 }
 
 class _HelloConvexAppBarState extends State<HelloConvexAppBar> {
-  int _selectedIndex = 0;
+  int _selectedIndex = 1;
 
   static final List<Widget> _widgetOptions = <Widget>[
+    ActivityScreen(),
+    // KartuScreen(),
     BerandaScreen(),
-    KartuScreen(),
-    HomeScreen(),
-    BukuSakuScreen(),
-    const UserSettings(),
+    // BukuSakuScreen(),
+    UserSettings(),
   ];
 
   void _onItemTapped(int index) {
@@ -36,13 +36,13 @@ class _HelloConvexAppBarState extends State<HelloConvexAppBar> {
       bottomNavigationBar: ConvexAppBar(
         style: TabStyle.titled,
         items: const [
-          TabItem(icon: Icons.list, title: 'Menu'),
-          TabItem(icon: Icons.credit_card, title: 'Kartu'),
+          TabItem(icon: Icons.home, title: 'Aktifitas'),
+          // TabItem(icon: Icons.credit_card, title: 'Kartu'),
           TabItem(icon: Icons.home, title: 'Home'),
-          TabItem(icon: Icons.menu_book, title: 'Buku Saku'),
+          // TabItem(icon: Icons.menu_book, title: 'Buku Saku'),
           TabItem(icon: Icons.person, title: 'Akun'),
         ],
-        initialActiveIndex: 2,
+        initialActiveIndex: 1,
         onTap: (int i) => _onItemTapped(i),
       ),
     );

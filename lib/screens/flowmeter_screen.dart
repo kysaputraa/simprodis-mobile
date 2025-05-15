@@ -33,13 +33,23 @@ class FlowmeterScreenState extends State<FlowmeterScreen> {
             child: Column(
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
-                Text(
-                  "INTAKE",
-                  style: TextStyle(
-                    fontSize: 42,
-                    fontWeight: FontWeight.bold,
-                    color: Colors.white,
-                  ),
+                BlocBuilder<InstalasiCubit, InstalasiState>(
+                  builder: (context, state) {
+                    if (state is InstalasiSuccess) {
+                      return Text(
+                        "${state.selectedJenisInstalasi}".toUpperCase(),
+                        style: TextStyle(
+                          fontSize: 42,
+                          fontWeight: FontWeight.bold,
+                          color: Colors.white,
+                        ),
+                      );
+                    } else if (state is InstalasiLoading) {
+                      return Center(child: CircularProgressIndicator());
+                    } else {
+                      return Center(child: Text("Gagal"));
+                    }
+                  },
                 ),
                 Text(
                   'Flow Meter',
@@ -298,7 +308,9 @@ class FlowmeterScreenState extends State<FlowmeterScreen> {
                           } else if (stateFlowmeter is FlowmeterError) {
                             ScaffoldMessenger.of(context).showSnackBar(
                               SnackBar(
-                                content: Text("Gagal menyimpan data"),
+                                content: Text(
+                                  "Gagal : ${stateFlowmeter.message}",
+                                ),
                                 backgroundColor: Colors.red,
                               ),
                             );
@@ -310,10 +322,9 @@ class FlowmeterScreenState extends State<FlowmeterScreen> {
                           } else {
                             return ElevatedButton.icon(
                               onPressed: () {
-                                if (selectedFlowMeter != null &&
-                                    standMeterController.text.isNotEmpty &&
-                                    debitController.text.isNotEmpty) {
+                                if (selectedFlowMeter != null) {
                                   flowmeterCubit.simpan(
+                                    idInstalasi: state.selectedInstalasi,
                                     tanggal: state.selectedTanggal,
                                     jam: state.selectedJam,
                                     idFlowmeter: selectedFlowMeter,

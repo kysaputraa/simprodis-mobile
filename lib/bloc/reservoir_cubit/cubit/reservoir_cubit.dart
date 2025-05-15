@@ -109,6 +109,7 @@ class ReservoirCubit extends Cubit<ReservoirState> {
     required jam,
     required idPressGab,
     required tinggi,
+    required idInstalasi,
   }) async {
     String? baseUrl = dotenv.env['BASE_URL'];
 
@@ -140,6 +141,7 @@ class ReservoirCubit extends Cubit<ReservoirState> {
         emit(ReservoirSuccessInsert());
       } else {
         emit(ReservoirError(message: jsonResponse['message'].toString()));
+        fetchData2(idInstalasi: idInstalasi);
       }
     } catch (e) {
       emit(ReservoirError(message: e.toString()));

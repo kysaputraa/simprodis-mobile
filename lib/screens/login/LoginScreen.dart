@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_svg/flutter_svg.dart';
 import 'package:go_router/go_router.dart';
 import 'package:simprodis_flutter/routes/router.dart';
 import 'package:simprodis_flutter/screens/home/bloc_pegawai/pegawai_bloc.dart';
@@ -235,7 +234,7 @@ class _LoginScreenState extends State<LoginScreen> {
                                         PegawaiEventFetch(),
                                       );
 
-                                      context.goNamed(Routes.bottomNavbar);
+                                      context.pushNamed(Routes.bottomNavbar);
                                     } else if (state is AuthError) {
                                       ScaffoldMessenger.of(
                                         context,

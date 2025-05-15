@@ -61,7 +61,8 @@ class TinggiSungaiCubit extends Cubit<TinggiSungaiState> {
       );
       var jsonResponse = jsonDecode(response.body) as Map<String, dynamic>;
       if (jsonResponse['code'] == 1) {
-        fetchData(id_instalasi: id_instalasi, tanggal: tanggal);
+        emit(TinggiSungaiSuccessInsert(message: jsonResponse['message']));
+        // fetchData(id_instalasi: id_instalasi, tanggal: tanggal);
       } else {
         emit(TinggiSungaiError(message: jsonResponse['message'].toString()));
         fetchData(id_instalasi: id_instalasi, tanggal: tanggal);
